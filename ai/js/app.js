@@ -8,20 +8,31 @@
 
   /* ---------- Zapis postępu (localStorage) ---------- */
   const KEY = 'akademia-ai:v1';
+  const KEY_SKROT = 'akademia-ai:podsumowanie';
+  // Tryb podglądu: rodzic wchodzi hasłem podglądu. Widzi wszystko, nic się nie zapisuje.
+  const podglad = () => !!(window.BRAMKA && window.BRAMKA.podglad());
   const fresh = () => ({ v: 1, name: '', done: {}, steps: {}, journal: [], unlockAll: false, createdAt: Date.now() });
   let state = load();
   function load() {
     try { const raw = localStorage.getItem(KEY); return raw ? Object.assign(fresh(), JSON.parse(raw)) : fresh(); }
     catch (e) { return fresh(); }
   }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* tryb prywatny: trudno */ } }
-
-  // Imię można ustawić linkiem: index.html?imie=Filip (znika z adresu po zapisaniu).
-  const params = new URLSearchParams(location.search);
-  if (params.get('imie')) {
-    state.name = params.get('imie').trim().slice(0, 30);
-    save();
-    history.replaceState(null, '', location.pathname + location.hash);
+  function save() {
+    if (podglad()) return;
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* tryb prywatny: trudno */ }
+    zapiszSkrot();
+  }
+  // Skrót dla strony startowej: ile zaliczone i co dalej, bez ładowania całej treści kursu.
+  function zapiszSkrot() {
+    if (podglad()) return;
+    const nid = nextId(); const n = nid != null ? byId(nid) : null;
+    try {
+      localStorage.setItem(KEY_SKROT, JSON.stringify({
+        zrobione: doneCount(), wszystkie: missions().length,
+        nastepna: n ? { id: n.id, tytul: n.title } : null,
+        imie: state.name || '', kiedy: Date.now()
+      }));
+    } catch (e) { /* tryb prywatny: trudno */ }
   }
 
   /* ---------- Pomocnicze ---------- */
@@ -43,7 +54,7 @@
   const isDone = id => !!state.done[id];
   const doneCount = () => missions().filter(m => isDone(m.id)).length;
   const nextId = () => { const n = missions().find(m => !isDone(m.id)); return n ? n.id : null; };
-  const isUnlocked = id => state.unlockAll || isDone(id) || String(id) === String(nextId());
+  const isUnlocked = id => podglad() || state.unlockAll || isDone(id) || String(id) === String(nextId());
   const fmtDate = ts => new Date(ts).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long' });
   const name = () => state.name || '';
   let justPrinted = null;
@@ -155,7 +166,7 @@
   function viewNiezbednik() {
     const nid = nextId();
     const cards = A.cards.slice().sort((a, b) => a.mission - b.mission).map(c => {
-      const open = state.unlockAll || isDone(c.mission) || String(c.mission) === String(nid);
+      const open = podglad() || state.unlockAll || isDone(c.mission) || String(c.mission) === String(nid);
       if (!open) return `<article class="tcard locked"><span class="eyebrow">Misja ${c.mission}</span><h2>${esc(c.title)}</h2><p class="when">Odblokujesz w misji ${c.mission}.</p></article>`;
       return `<article class="tcard"><span class="eyebrow">Misja ${c.mission}</span><h2>${esc(c.title)}</h2><p class="when">${md(c.when)}</p>${c.prompt ? promptBlock(c.prompt, c.title) : ''}${c.more ? `<p class="small muted" style="margin:0">${md(c.more)}</p>` : ''}</article>`;
     }).join('');
@@ -188,7 +199,7 @@
     return `<h1>Ustawienia</h1>
       <section class="section"><div class="card"><div class="field"><label for="name-in">Imię albo ksywka</label><input id="name-in" type="text" maxlength="30" value="${esc(name())}" placeholder="Jak mam do Ciebie mówić?"></div><button class="btn" type="button" data-act="save-name">Zapisz imię</button></div></section>
       <section class="section"><h2>Kopia postępu</h2><p class="muted">Postęp żyje w tej przeglądarce. Ten kod pozwala go przenieść na inny komputer albo odzyskać po wyczyszczeniu przeglądarki. Skopiuj i zachowaj, np. wyślij sobie w wiadomości.</p><div class="card"><label for="code-out">Twój kod zapisu</label><textarea id="code-out" readonly style="font-family:var(--mono);font-size:.85rem">${esc(code)}</textarea><div class="btn-row"><button class="btn small" type="button" data-copy="${esc(code)}">Kopiuj kod</button></div><hr><label for="code-in">Wczytaj kod zapisu</label><textarea id="code-in" placeholder="Wklej tu kod z innego komputera" style="font-family:var(--mono);font-size:.85rem"></textarea><div class="btn-row"><button class="btn small" type="button" data-act="import">Wczytaj</button></div></div></section>
-      <section class="section"><h2>Hasło</h2><div class="card"><p class="muted">Ta przeglądarka pamięta, że hasło zostało już wpisane. Zablokuj, jeśli chcesz, żeby strona zapytała o nie przy następnym otwarciu.</p><button class="btn ghost small" type="button" data-act="lock">Zablokuj stronę</button></div></section>
+      <section class="section"><h2>Hasło</h2><div class="card"><p class="muted">Ta przeglądarka pamięta, że hasło zostało już wpisane. Zablokuj, jeśli chcesz, żeby strona zapytała o nie przy następnym otwarciu. Blokada dotyczy obu kursów i strony startowej.</p><button class="btn ghost small" type="button" data-act="lock">Zablokuj stronę</button></div></section>
       <section class="section"><h2>Od nowa</h2><div class="card"><p class="muted">Kasuje zaliczone misje, kroki i Dziennik na tym komputerze. Imię zostaje.</p><button class="btn ghost small" type="button" data-act="reset">Wyzeruj postęp</button></div></section>`;
   }
 
@@ -221,6 +232,9 @@
     if (cp) { copyText(cp.getAttribute('data-copy'), cp); return; }
     const b = e.target.closest('[data-act]'); if (!b) return;
     const act = b.getAttribute('data-act');
+    if (podglad() && (act === 'reset' || act === 'import' || act === 'save-name')) {
+      toast('Tryb podglądu. Tutaj nic się nie zapisuje.'); return;
+    }
     if (act === 'save-name') {
       const v = ($('#name-in').value || '').trim().slice(0, 30); state.name = v; save(); toast(v ? `Zapisane. Cześć, ${v}.` : 'Imię wyczyszczone.'); render(); return;
     }
@@ -244,13 +258,13 @@
     if (act === 'pw-line') {
       const v = ($('#pw-new').value || '').trim();
       if (!v) { toast('Wpisz nowe hasło.'); return; }
-      if (!A.gate) { toast('Bramka nie jest wczytana.'); return; }
-      const line = `  var HASH = '${A.gate.hash(v)}'; // hasło: ${v}`;
-      $('#pw-out').innerHTML = `<p class="small muted" style="margin:1rem 0 0">Wklej tę linię w pliku <code>js/gate.js</code>, w miejsce linii zaczynającej się od <code>var HASH</code>. Po zmianie każdy wpisuje nowe hasło jeszcze raz.</p>` + promptBlock(line, 'linia z hasłem');
+      if (!window.BRAMKA) { toast('Bramka nie jest wczytana.'); return; }
+      const line = `  var HASH_UCZEN   = '${window.BRAMKA.hash(v)}'; // hasło ucznia: ${v}`;
+      $('#pw-out').innerHTML = `<p class="small muted" style="margin:1rem 0 0">Wklej tę linię w pliku <code>js/gate.js</code> (ten sam plik obsługuje oba kursy i stronę startową), w miejsce linii zaczynającej się od <code>var HASH_UCZEN</code>. Hasło podglądu siedzi linijkę niżej, w <code>HASH_PODGLAD</code>. Po zmianie każdy wpisuje nowe hasło jeszcze raz.</p>` + promptBlock(line, 'linia z hasłem');
       return;
     }
     if (act === 'lock') {
-      if (A.gate) A.gate.lock();
+      if (window.BRAMKA) window.BRAMKA.zamknij();
       location.reload(); return;
     }
     if (act === 'reset') {
@@ -263,7 +277,8 @@
       const mid = location.hash.split('/')[2]; state.steps[mid] = state.steps[mid] || {}; state.steps[mid][step.getAttribute('data-step')] = step.checked; save();
       step.closest('.step').classList.toggle('done', step.checked); return;
     }
-    if (e.target.matches('[data-act="unlock-all"]')) { state.unlockAll = e.target.checked; save(); toast(state.unlockAll ? 'Wszystkie misje odblokowane.' : 'Misje znów idą po kolei.'); }
+    if (e.target.matches('[data-act="unlock-all"]')) {
+      if (podglad()) { e.target.checked = true; toast('W trybie podglądu wszystkie misje i tak są otwarte.'); return; } state.unlockAll = e.target.checked; save(); toast(state.unlockAll ? 'Wszystkie misje odblokowane.' : 'Misje znów idą po kolei.'); }
   });
   main.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'name-in') { e.preventDefault(); $('[data-act="save-name"]').click(); } });
 
@@ -285,5 +300,21 @@
     if (justPrinted != null && !(view === 'misja' || view === 'home')) justPrinted = null;
   }
   window.addEventListener('hashchange', () => { if (!location.hash.startsWith('#/misja')) justPrinted = null; render(); });
-  render();
+
+  /* ---------- Start ---------- */
+  function startuj() {
+    // Imię można ustawić linkiem: ?imie=Filip (znika z adresu po zapisaniu).
+    const params = new URLSearchParams(location.search);
+    if (params.get('imie') && !podglad()) {
+      state.name = params.get('imie').trim().slice(0, 30);
+      save();
+      history.replaceState(null, '', location.pathname + location.hash);
+    }
+    render();
+    zapiszSkrot();
+  }
+  // Bramka zasłania stronę, dopóki nie padnie hasło. Do tego czasu nie wiadomo,
+  // czy to uczeń, czy rodzic w podglądzie, więc czekamy z rysowaniem.
+  if (!window.BRAMKA || window.BRAMKA.otwarta()) startuj();
+  else window.addEventListener('bramka:otwarta', startuj, { once: true });
 })();

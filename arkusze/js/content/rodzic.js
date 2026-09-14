@@ -21,9 +21,10 @@ window.ARKUSZE.parent = {
     },
     {
       title: 'Hasło do strony',
-      html: '<p>Wejście na stronę jest zamknięte hasłem <strong>nukacola</strong>, tym samym co w Akademii AI. Wielkie litery i spacje nie mają znaczenia. Dziecko wpisuje je raz na danym komputerze, potem przeglądarka pamięta. W Ustawieniach jest przycisk „Zablokuj stronę”, który każe wpisać hasło ponownie.</p>' +
+      html: '<p>Wejście jest zamknięte hasłem. Jedna bramka obsługuje stronę startową, Akademię Arkuszy i Akademię AI, więc hasło wpisuje się raz na danym komputerze. W Ustawieniach jest przycisk „Zablokuj stronę”, który każe wpisać je ponownie.</p>' +
+        '<p><strong>Dwa hasła, dwie role.</strong> <code>nukacola</code> to wejście dla dziecka: misje idą po kolei, a zaliczone misje, odhaczone kroki i Dziennik zapisują się w tej przeglądarce. <code>tatatest</code> to Twój podgląd: wszystkie misje i karty Niezbędnika są otwarte od razu, a strona <strong>nic nie zapisuje</strong>. Możesz klikać, zaliczać i cofać — po odświeżeniu postęp dziecka jest dokładnie taki, jak był. W podglądzie na dole ekranu wisi pasek „Tryb podglądu”, a przycisk „Wyjdź” wraca do pytania o hasło.</p>' +
         '<p><strong>Co to hasło robi, a czego nie.</strong> Zasłania stronę przed kimś, kto trafi na adres przypadkiem, i razem z blokadą indeksowania trzyma ją poza wynikami wyszukiwarek. Nie jest zamkiem. Darmowe GitHub Pages działa tylko z publicznego repozytorium, więc treść kursu jest widoczna dla każdego, kto trafi na <a href="https://github.com/milof/akademia-ai" target="_blank" rel="noopener">samo repozytorium</a>. Nie ma tam nic prywatnego: żadnego imienia, żadnych danych dziecka. Postęp i Dziennik zapisują się wyłącznie w przeglądarce na Waszym komputerze.</p>' +
-        '<p>Hasło możesz zmienić w każdej chwili. Wpisz nowe w polu na dole tej strony, skopiuj wygenerowaną linię i wklej ją w pliku <code>arkusze/js/gate.js</code> w miejsce linii zaczynającej się od <code>var HASH</code>. Hasło Akademii AI siedzi w osobnym pliku <code>js/gate.js</code>, więc oba kursy mogą mieć różne hasła albo to samo.</p>'
+        '<p>Oba hasła zmienisz w jednym pliku <code>js/gate.js</code> na górze repozytorium: hasło dziecka w linii <code>HASH_UCZEN</code>, Twoje w <code>HASH_PODGLAD</code>. Nowe hasło dziecka wpisz w polu na dole tej strony, skopiuj wygenerowaną linię i wklej ją w miejsce starej. Zmiana obejmuje oba kursy naraz, bo bramka jest wspólna.</p>'
     },
     {
       title: 'Konto Google dla dziecka',

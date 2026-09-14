@@ -233,7 +233,7 @@
     const table = `<div class="table-wrap"><table><thead><tr><th>Misja</th><th>Czego uczy</th><th>O co zapytać po misji</th></tr></thead><tbody>${rows}</tbody></table></div>`;
     const sections = (P.sections || []).map(s => `<section class="section"><h2>${esc(s.title)}</h2>${s.html || paras(s.paras)}${s.table ? table : ''}</section>`).join('');
     const controls = `<section class="section"><h2>Ustawienia dla rodzica</h2><div class="card"><label class="switch"><input type="checkbox" data-act="unlock-all" ${state.unlockAll ? 'checked' : ''}> Odblokuj wszystkie misje naraz (domyślnie idą po kolei)</label><p class="small muted" style="margin:.8rem 0 0">Imię, kopia postępu i reset są w <a href="#/ustawienia">Ustawieniach</a>. Postęp zapisuje się tylko w tej przeglądarce.</p></div></section>
-      <section class="section"><h2>Zmiana hasła</h2><div class="card"><div class="field"><label for="pw-new">Nowe hasło</label><input id="pw-new" type="text" maxlength="40" placeholder="np. nukacola" autocomplete="off" spellcheck="false"></div><button class="btn" type="button" data-act="pw-line">Pokaż linię do wklejenia</button><div id="pw-out"></div></div></section>`;
+      <section class="section"><h2>Zmiana hasła</h2><div class="card"><div class="field"><label for="pw-new">Nowe hasło</label><input id="pw-new" type="text" maxlength="40" placeholder="nowe hasło" autocomplete="off" spellcheck="false"></div><button class="btn" type="button" data-act="pw-line">Pokaż linię do wklejenia</button><div id="pw-out"></div></div></section>`;
     return `<h1>${esc(P.title || 'Dla rodzica')}</h1>${intro}${sections}${controls}`;
   }
 
@@ -302,7 +302,8 @@
       const v = ($('#pw-new').value || '').trim();
       if (!v) { toast('Wpisz nowe hasło.'); return; }
       if (!window.BRAMKA) { toast('Bramka nie jest wczytana.'); return; }
-      const line = `  var HASH_UCZEN   = '${window.BRAMKA.hash(v)}'; // hasło ucznia: ${v}`;
+      // Sam skrót, bez hasła obok: ta linia trafia do publicznego repozytorium.
+      const line = `  var HASH_UCZEN   = '${window.BRAMKA.hash(v)}';`;
       $('#pw-out').innerHTML = `<p class="small muted" style="margin:1rem 0 0">Wklej tę linię w pliku <code>js/gate.js</code> (ten sam plik obsługuje oba kursy i stronę startową), w miejsce linii zaczynającej się od <code>var HASH_UCZEN</code>. Hasło podglądu siedzi linijkę niżej, w <code>HASH_PODGLAD</code>. Po zmianie każdy wpisuje nowe hasło jeszcze raz.</p>` + copyBlock(line, 'linia z hasłem');
       return;
     }

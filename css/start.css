@@ -1,0 +1,173 @@
+/* Strona startowa Akademii. Neutralna paleta rodziny: atrament i szarości,
+   kolory należą do kursów — pomarańcz do AI, zieleń do Arkuszy. */
+:root {
+  --bed: #F3F5F7;
+  --paper: #FFFFFF;
+  --ink: #16202A;
+  --steel: #5B6B7A;
+  --line: #D9DFE5;
+  --filament: #F2620F;
+  --filament-deep: #BC4705;
+  --display: "Bricolage Grotesque", "Lexend", system-ui, sans-serif;
+  --body: "Lexend", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", "Consolas", "Menlo", monospace;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 2px rgba(22,32,42,.06), 0 8px 24px -12px rgba(22,32,42,.18);
+  --maxw: 900px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bed);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+h1, h2 { font-family: var(--display); line-height: 1.15; margin: 0 0 .4em; letter-spacing: -.01em; }
+h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; }
+h2 { font-size: 1.5rem; font-weight: 700; }
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+a { color: var(--filament-deep); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+code { font-family: var(--mono); font-size: .92em; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: .05em .4em; }
+
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: .5rem 1rem; border-radius: 8px; z-index: 50; }
+.skip:focus { left: 8px; }
+
+/* ---- Nagłówek i stopka ---- */
+.top {
+  max-width: var(--maxw); margin: 0 auto; padding: 1.1rem 1.25rem .6rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.brand { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--display); font-weight: 800; font-size: 1.25rem; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+.brand-mark { width: 30px; height: 30px; }
+.nav { display: flex; gap: .25rem; flex-wrap: wrap; }
+.nav a, .nav button, .foot-nav a {
+  color: var(--steel); text-decoration: none; font: inherit; font-weight: 500; font-size: 1rem;
+  background: none; border: 0; padding: .45rem .8rem; border-radius: 999px; cursor: pointer;
+}
+.nav a:hover, .nav button:hover { color: var(--ink); background: var(--paper); }
+.main { max-width: var(--maxw); margin: 0 auto; padding: 1rem 1.25rem 3rem; }
+.foot {
+  max-width: var(--maxw); margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; color: var(--steel); font-size: .9rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; border-top: 1px solid var(--line);
+}
+.foot-nav { display: flex; gap: .25rem; flex-wrap: wrap; }
+.foot-nav a { padding: .3rem .6rem; }
+.foot-nav a:hover { color: var(--ink); }
+
+/* ---- Powitanie ---- */
+.powitanie { padding: 1.5rem 0 .5rem; }
+.wstep { font-size: 1.15rem; color: var(--steel); max-width: 40ch; }
+
+/* ---- Kursy jako ikony ---- */
+.siatka {
+  display: flex; flex-wrap: wrap; gap: 1.5rem 2.25rem;
+  padding: 1.5rem 0 2.5rem;
+}
+.kafelek {
+  width: 128px; text-align: center; text-decoration: none; color: var(--ink);
+  display: flex; flex-direction: column; align-items: center;
+  transition: transform .14s ease;
+}
+a.kafelek:hover { transform: translateY(-3px); }
+a.kafelek:hover .nazwa { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.ikona { position: relative; display: block; width: 96px; height: 96px; }
+.ikona svg { width: 96px; height: 96px; display: block; border-radius: 22%; box-shadow: var(--shadow); }
+.plakietka {
+  position: absolute; top: -6px; right: -6px; min-width: 26px; height: 26px; padding: 0 7px;
+  border-radius: 13px; background: var(--ink); color: #fff; border: 3px solid var(--bed);
+  font-family: var(--mono); font-size: .75rem; font-weight: 600; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.plakietka.gotowe { background: #197E44; }
+/* Dwa wiersze na nazwę: dłuższa nazwa nie zsuwa podpisu w dół względem sąsiada. */
+.nazwa { font-family: var(--display); font-weight: 700; font-size: 1rem; margin-top: .7rem; line-height: 1.2; min-height: 2.4em; }
+.podpis { font-size: .85rem; color: var(--steel); margin-top: .15rem; }
+
+.kafelek.pusty { color: var(--steel); }
+.kafelek.pusty .ikona {
+  border: 2px dashed #C3CCD6; border-radius: 22%;
+  display: flex; align-items: center; justify-content: center;
+}
+.kafelek.pusty .plus { font-size: 2rem; font-weight: 300; color: #8A9AAA; line-height: 1; }
+.kafelek.pusty .nazwa { color: var(--steel); font-weight: 600; }
+
+/* ---- Kompletność ---- */
+.podsumowanie {
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.25rem 1.4rem; box-shadow: var(--shadow);
+}
+.nadtytul {
+  font-family: var(--mono); font-size: .72rem; font-weight: 500; letter-spacing: .14em;
+  text-transform: uppercase; color: #8A9AAA; margin: 0 0 1rem;
+}
+.wiersz + .wiersz { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid #EEF1F4; }
+.wiersz-gora { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.wiersz-gora b { font-weight: 600; }
+.licznik { font-family: var(--mono); font-size: .85rem; color: var(--steel); font-variant-numeric: tabular-nums; }
+.pasek { display: flex; gap: 3px; margin: .55rem 0 .4rem; }
+.pasek i { flex: 1; height: 10px; border-radius: 3px; background: #E4E9EE; display: block; }
+.wiersz-dol { font-size: .9rem; color: var(--steel); margin: 0; }
+
+.karta { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem 1.4rem; box-shadow: var(--shadow); }
+.cichy { color: var(--steel); }
+
+@media (max-width: 560px) {
+  .siatka { gap: 1.25rem 1.5rem; }
+  .kafelek { width: 104px; }
+  .ikona, .ikona svg { width: 78px; height: 78px; }
+}
+
+/* ---- Klocki formularza (używa ich bramka z hasłem) ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem; border: 2px solid var(--ink); background: var(--ink); color: #fff;
+  font: inherit; font-weight: 600; padding: .7rem 1.2rem; border-radius: 999px; cursor: pointer; text-decoration: none; line-height: 1.2;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn.primary { background: var(--ink); border-color: var(--ink); color: #fff; }
+.btn.primary:hover { background: #223243; border-color: #223243; }
+input[type=text], input[type=password] {
+  font: inherit; color: var(--ink); background: var(--paper); border: 2px solid var(--line); border-radius: var(--radius-sm);
+  padding: .65rem .8rem; width: 100%; max-width: 100%;
+}
+input[type=text]:focus, input[type=password]:focus { border-color: var(--ink); }
+label { font-weight: 600; display: block; margin-bottom: .35rem; }
+.field { margin-bottom: 1rem; }
+.switch { display: flex; align-items: center; gap: .6rem; font-weight: 500; cursor: pointer; }
+.switch input { width: 20px; height: 20px; accent-color: var(--ink); }
+
+/* ---- Bramka z hasłem ---- */
+html.locked, html.locked body { overflow: hidden; height: 100%; }
+html.locked body > *:not(#gate) { display: none !important; }
+#gate {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+  padding: 1.5rem; background: var(--bed);
+}
+.gate-card {
+  width: 100%; max-width: 380px; background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 2rem 1.75rem 1.5rem; box-shadow: var(--shadow); text-align: center;
+}
+.gate-mark { width: 44px; height: 44px; margin-bottom: .75rem; }
+.gate-card h1 { font-size: 1.6rem; margin-bottom: .3rem; }
+.gate-lead { color: var(--steel); margin-bottom: 1.5rem; }
+.gate-card .field { text-align: left; margin-bottom: .75rem; }
+.gate-card input[type=password], .gate-card input[type=text] { font-size: 1.1rem; letter-spacing: .02em; }
+.gate-card .switch { justify-content: flex-start; font-size: .92rem; color: var(--steel); margin-bottom: 1.25rem; }
+.gate-card .btn { width: 100%; justify-content: center; }
+.gate-err { color: var(--filament-deep); font-weight: 600; font-size: .95rem; margin: 0 0 1rem; }
+.gate-note { color: var(--steel); font-size: .85rem; margin: 1rem 0 0; }
+.gate-card.shake { animation: shake .3s ease; }
+@keyframes shake { 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }

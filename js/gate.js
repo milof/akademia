@@ -8,8 +8,9 @@
    To jest bramka, nie zamek. Trzyma z dala przypadkowych gości, nie kogoś, kto zna się na rzeczy. */
 (function () {
   'use strict';
-  var HASH_UCZEN   = 'a726073d'; // hasło ucznia: nukacola
-  var HASH_PODGLAD = 'a009a515'; // hasło podglądu: tatatest
+  // Repozytorium jest publiczne, więc stoją tu tylko skróty, nigdy same hasła.
+  var HASH_UCZEN   = 'a726073d';
+  var HASH_PODGLAD = 'a009a515';
 
   var KEY = 'akademia:wejscie';
   var STARE = ['akademia-ai:gate', 'akademia-arkusze:gate']; // bramki sprzed połączenia kursów

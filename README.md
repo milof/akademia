@@ -12,14 +12,16 @@ Każdy kurs ma własne style, logikę, treść i własny postęp w przeglądarce
 
 Jedna bramka zasłania stronę startową i oba kursy. Hasło wpisuje się raz na danej przeglądarce; przycisk „Zablokuj stronę” (w Ustawieniach kursu albo w nagłówku strony startowej) każe zapytać o nie ponownie, wszędzie naraz.
 
-| Hasło | Rola | Co robi |
+| Wchodzi | Rola | Co robi |
 | --- | --- | --- |
-| `nukacola` | uczeń | Misje idą po kolei. Zaliczone misje, odhaczone kroki i Dziennik zapisują się w przeglądarce. |
-| `tatatest` | podgląd rodzica | Wszystkie misje i karty Niezbędnika otwarte od razu. **Nic się nie zapisuje** — po odświeżeniu postęp dziecka jest taki, jak był. Na dole ekranu wisi pasek „Tryb podglądu” z przyciskiem „Wyjdź”. |
+| hasło dziecka | uczeń | Misje idą po kolei. Zaliczone misje, odhaczone kroki i Dziennik zapisują się w przeglądarce. |
+| hasło rodzica | podgląd | Wszystkie misje i karty Niezbędnika otwarte od razu. **Nic się nie zapisuje** — po odświeżeniu postęp dziecka jest taki, jak był. Na dole ekranu wisi pasek „Tryb podglądu” z przyciskiem „Wyjdź”. |
+
+Samych haseł nie ma w tym repozytorium, bo repozytorium jest publiczne. W `js/gate.js` stoją tylko ich skróty (`HASH_UCZEN` i `HASH_PODGLAD`). Trzymaj hasła poza repo, na przykład w menedżerze haseł.
 
 Wielkie litery i spacje nie mają znaczenia. Kto wpisał hasło jeszcze przed połączeniem kursów, nie musi go wpisywać ponownie: stare klucze bramek migrują same przy pierwszym wejściu.
 
-Zmiana haseł: oba siedzą w `js/gate.js` — hasło ucznia w linii `HASH_UCZEN`, hasło podglądu w `HASH_PODGLAD`. Nowe hasło ucznia wygenerujesz na stronie „Dla rodzica” dowolnego kursu, w sekcji „Zmiana hasła”: wpisz je, skopiuj gotową linię i wklej w miejsce starej. Po zmianie wszyscy wpisują nowe hasło jeszcze raz.
+Zmiana haseł: obie linie są w `js/gate.js` — hasło ucznia w `HASH_UCZEN`, hasło podglądu w `HASH_PODGLAD`. Nowe hasło ucznia wygenerujesz na stronie „Dla rodzica” dowolnego kursu, w sekcji „Zmiana hasła”: wpisz je, skopiuj gotową linię i wklej w miejsce starej. Linia zawiera sam skrót, więc można ją bezpiecznie zacommitować. Po zmianie wszyscy wpisują nowe hasło jeszcze raz.
 
 To jest bramka, nie zamek. Zasłania stronę przed kimś, kto trafi na adres przypadkiem, a `robots.txt` i `noindex` trzymają ją poza wyszukiwarkami. Darmowe GitHub Pages działa tylko z publicznego repozytorium, więc treść kursu jest widoczna dla każdego, kto trafi na to repo. Nie ma tu nic prywatnego: żadnego imienia, żadnych rozmów, żadnych danych dziecka.
 

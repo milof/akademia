@@ -77,6 +77,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
 .nav a:hover { color: var(--ink); background: var(--paper); }
 .nav a.active { color: var(--ink); background: var(--paper); box-shadow: inset 0 -3px 0 var(--leaf); }
 .main { max-width: var(--maxw); margin: 0 auto; padding: 1rem 1.25rem 3rem; }
+/* Treść dostaje fokus z kodu (po bramce i wyborze domownika); ramka wokół całej strony tylko przeszkadza. */
+.main:focus { outline: none; }
 .foot {
   max-width: var(--maxw); margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; color: var(--steel); font-size: .9rem;
   display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; border-top: 1px solid var(--line);
@@ -106,6 +108,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
 .tag { display: inline-block; font-size: .8rem; font-weight: 600; padding: .15rem .6rem; border-radius: 999px; background: var(--bed); color: var(--steel); border: 1px solid var(--line); }
 .tag.ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
 .tag.hot { background: var(--sel-soft); color: var(--sel-deep); border-color: transparent; }
+.tag.new { background: var(--ink); color: #fff; border-color: transparent; }
 .callout { border-left: 4px solid var(--leaf); background: var(--leaf-soft); padding: .9rem 1.1rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 1rem 0; }
 .callout.ok { border-color: var(--ok); background: var(--ok-soft); }
 .callout.note { border-color: #E0B400; background: var(--warn-soft); }
@@ -147,6 +150,10 @@ label { font-weight: 600; display: block; margin-bottom: .35rem; }
 .stack-label { font-family: var(--mono); font-size: 11px; fill: var(--steel); }
 
 .mission-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+.chapter-head { display: flex; justify-content: space-between; gap: 1rem; font-size: .85rem; margin: 2rem 0 .7rem; }
+.chapter-head:first-of-type { margin-top: 0; }
+.chapter-head span:last-child { font-variant-numeric: tabular-nums; }
+.tcard .share { align-self: flex-start; margin-top: auto; }
 .mission-row {
   display: grid; grid-template-columns: 52px 1fr auto; gap: 1rem; align-items: center;
   background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem 1.1rem;
@@ -270,6 +277,7 @@ details[open] summary { border-bottom: 1px solid var(--line); margin-bottom: .6r
   .mission-head { grid-template-columns: 1fr; }
 }
 @media print {
+  .share { display: none !important; }
   .top, .foot, .btn, .copy, .toast { display: none !important; }
   body { background: #fff; }
   .card, .tcard, .copybox, .sheet-wrap { box-shadow: none; }

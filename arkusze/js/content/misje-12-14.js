@@ -3,7 +3,7 @@ window.ARKUSZE = window.ARKUSZE || {};
 window.ARKUSZE.missions = window.ARKUSZE.missions || [];
 window.ARKUSZE.missions.push(
 {
-  id: 12,
+  id: 'przestawna',
   title: 'Tabela przestawna liczy za Ciebie',
   subtitle: 'Podsumowania z dużej tabelki w trzy kliknięcia, bez formuł',
   technique: 'Tabela przestawna',
@@ -54,7 +54,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 13,
+  id: 'twoj-arkusz-1',
   title: 'Twój arkusz, część 1',
   subtitle: 'Wybierasz temat i budujesz coś, czego naprawdę użyjesz',
   technique: 'Wszystko razem',
@@ -90,7 +90,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 14,
+  id: 'twoj-arkusz-2',
   title: 'Twój arkusz, część 2',
   subtitle: 'Dopracuj, zabezpiecz, udostępnij i zabierz w telefonie',
   technique: 'Dopracowanie i współpraca',

@@ -3,7 +3,7 @@ window.AKADEMIA = window.AKADEMIA || {};
 window.AKADEMIA.missions = window.AKADEMIA.missions || [];
 window.AKADEMIA.missions.push(
 {
-  id: 0,
+  id: 'rozruch',
   title: 'Rozruch',
   subtitle: 'Zasady gry i pierwsze słowa do AI',
   technique: 'Zasady gry',
@@ -50,7 +50,7 @@ window.AKADEMIA.missions.push(
   }
 },
 {
-  id: 1,
+  id: 'karta-startowa',
   title: 'Powiedz, kim jesteś i czego chcesz',
   subtitle: 'Karta startowa: trzy zdania, które zmieniają wszystko',
   technique: 'Karta startowa',
@@ -97,7 +97,7 @@ window.AKADEMIA.missions.push(
   }
 },
 {
-  id: 2,
+  id: 'dopytuj',
   title: 'Dopytuj i poprawiaj',
   subtitle: 'Nie zaczynaj od nowa. Powiedz, co zmienić.',
   technique: 'Dopytywanie',

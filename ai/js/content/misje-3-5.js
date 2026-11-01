@@ -3,7 +3,7 @@ window.AKADEMIA = window.AKADEMIA || {};
 window.AKADEMIA.missions = window.AKADEMIA.missions || [];
 window.AKADEMIA.missions.push(
 {
-  id: 3,
+  id: 'trudny-temat',
   title: 'Zrozum trudny temat',
   subtitle: 'AI jako cierpliwy nauczyciel, który nigdy nie wzdycha',
   technique: 'Wytłumacz mi',
@@ -54,7 +54,7 @@ window.AKADEMIA.missions.push(
   }
 },
 {
-  id: 4,
+  id: 'porownaj',
   title: 'Porównaj i sprawdź',
   subtitle: 'Research: tabela, kryteria i drugie miejsce',
   technique: 'Porównanie i sprawdzenie',
@@ -105,7 +105,7 @@ window.AKADEMIA.missions.push(
   }
 },
 {
-  id: 5,
+  id: 'plan-na-kroki',
   title: 'Rozbij duży plan na kroki',
   subtitle: 'Z wielkiej rzeczy zrób listę małych',
   technique: 'Plan w krokach',

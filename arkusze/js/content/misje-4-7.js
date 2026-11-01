@@ -3,7 +3,7 @@ window.ARKUSZE = window.ARKUSZE || {};
 window.ARKUSZE.missions = window.ARKUSZE.missions || [];
 window.ARKUSZE.missions.push(
 {
-  id: 4,
+  id: 'suma',
   title: 'SUMA i spółka',
   subtitle: 'Funkcje: gotowe działania na całą kolumnę',
   technique: 'Funkcje',
@@ -53,7 +53,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 5,
+  id: 'pinezka',
   title: 'Pinezka, czyli znak dolara',
   subtitle: 'Jedna komórka dla wszystkich formuł',
   technique: 'Odwołanie bezwzględne',
@@ -101,7 +101,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 6,
+  id: 'sortuj',
   title: 'Sortuj i filtruj',
   subtitle: 'Kto jest na czele i jak widzieć tylko to, co chcesz',
   technique: 'Sortowanie i filtr',
@@ -152,7 +152,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 7,
+  id: 'wykres',
   title: 'Wykres w minutę',
   subtitle: 'Kolumny, koło czy linia: jak pokazać liczby obrazkiem',
   technique: 'Wykres',

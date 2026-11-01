@@ -3,7 +3,7 @@ window.AKADEMIA = window.AKADEMIA || {};
 window.AKADEMIA.missions = window.AKADEMIA.missions || [];
 window.AKADEMIA.missions.push(
 {
-  id: 6,
+  id: 'kilka-wersji',
   title: 'Kilka wersji i wybór',
   subtitle: 'Nie bierz pierwszej. Poproś o trzy i wybierz.',
   technique: 'Trzy wersje',
@@ -53,7 +53,7 @@ window.AKADEMIA.missions.push(
   }
 },
 {
-  id: 7,
+  id: 'zlap-blad',
   title: 'Złap AI na błędzie',
   subtitle: 'Kiedy sprawdzać i jak to zrobić w minutę',
   technique: 'Sprawdzanie',
@@ -102,7 +102,7 @@ window.AKADEMIA.missions.push(
   }
 },
 {
-  id: 8,
+  id: 'sprawy-domowe',
   title: 'Sprawy domowe',
   subtitle: 'Lodówka, zepsuta rzecz i lista zakupów',
   technique: 'Opisz sytuację',

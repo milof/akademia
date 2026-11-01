@@ -35,8 +35,20 @@
     try {
       localStorage.removeItem(KEY);
       for (var i = 0; i < STARE.length; i++) localStorage.removeItem(STARE[i]);
+      sessionStorage.removeItem('akademia:kto'); // po zablokowaniu strona zapyta też, kto się uczy
     } catch (e) { /* trudno */ }
   }
+
+  // Link-zakładka: ?wejscie=<skrót hasła> otwiera bramkę bez wpisywania hasła. Link robi się na
+  // stronie startowej, w „Rodzina i kopia”. Po zmianie hasła stare linki przestają działać.
+  (function () {
+    var q = new URLSearchParams(location.search), w = q.get('wejscie');
+    if (!q.has('wejscie')) return;
+    if (w === HASH_UCZEN) zapisz('uczen', w);
+    else if (w === HASH_PODGLAD) zapisz('podglad', w);
+    q.delete('wejscie');
+    history.replaceState(null, '', location.pathname + (String(q) ? '?' + q : '') + location.hash);
+  })();
 
   // Kto raz wpisał hasło w starej, osobnej bramce kursu, nie wpisuje go drugi raz.
   function migruj() {
@@ -62,7 +74,9 @@
     rola: rola,
     otwarta: function () { return rola() !== null; },
     podglad: function () { return rola() === 'podglad'; },
-    zamknij: zapomnij
+    zamknij: zapomnij,
+    // Do linku-zakładki ucznia. Ten skrót i tak stoi jawnie w tym pliku.
+    przepustka: function () { return HASH_UCZEN; }
   };
 
   /* ---------- Pasek trybu podglądu ---------- */

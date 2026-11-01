@@ -5,7 +5,7 @@ window.ARKUSZE = window.ARKUSZE || {};
 window.ARKUSZE.missions = window.ARKUSZE.missions || [];
 window.ARKUSZE.missions.push(
 {
-  id: 0,
+  id: 'rozruch',
   title: 'Rozruch',
   subtitle: 'Siatka, adresy jak w statkach i Twój pierwszy arkusz',
   technique: 'Zasady gry',
@@ -52,7 +52,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 1,
+  id: 'tabela',
   title: 'Tabela, która dobrze wygląda',
   subtitle: 'Nagłówek, kolory, szerokość kolumn i format liczb',
   technique: 'Formatowanie',
@@ -103,7 +103,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 2,
+  id: 'przeciagnij',
   title: 'Przeciągnij i gotowe',
   subtitle: 'Uchwyt wypełniania: serie liczb, dni i dat w sekundę',
   technique: 'Uchwyt wypełniania',
@@ -152,7 +152,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 3,
+  id: 'pierwsza-formula',
   title: 'Pierwsza formuła',
   subtitle: 'Znak równości, cztery działania i adresy zamiast liczb',
   technique: 'Formuła',

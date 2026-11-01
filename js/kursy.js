@@ -1,11 +1,15 @@
 /* Spis kursów Akademii. Dopisanie kolejnego kursu to jeden obiekt w tej tablicy
-   plus katalog z kursem — strona startowa sama dołoży kafelek i pasek kompletności.
+   plus katalog z kursem — strona startowa sama dołoży kafelek, pasek kompletności i statystyki.
 
    nazwa    – podpis pod ikoną
    opis     – jedno zdanie na karcie kompletności
    sciezka  – katalog kursu względem strony startowej, ze slashem na końcu
-   klucz    – przedrostek kluczy w localStorage: <klucz>:v1 i <klucz>:podsumowanie
-   misje    – ile misji ma kurs (używane, zanim uczeń pierwszy raz go otworzy)
+   klucz    – przedrostek kluczy w localStorage: <klucz>:v2:<id domownika>
+   globalna – obiekt, do którego pliki treści kursu wkładają misje (window.<globalna>)
+   tresc    – pliki treści względem katalogu kursu, w kolejności ładowania. Spis rozdziałów pierwszy.
+              Kurs i strona startowa ładują je stąd, więc nowy plik dopisuje się tylko tutaj.
+   v1, kodV1 – tylko dla kursów sprzed stałych nazw misji: stare zapisy trzymały misje po numerach,
+              v1[n] to nazwa misji, która miała numer n. Nie zmieniaj. Nowy kurs ich nie potrzebuje.
    kolor    – kolor zaliczonej misji na pasku
    kolorNast– kolor misji, która jest następna w kolejce
    ikona    – ikona aplikacji, kwadrat 88 × 88 (id gradientów muszą być unikalne) */
@@ -16,7 +20,12 @@ window.KURSY = [
     opis: 'Sprawne używanie AI w codziennych sprawach',
     sciezka: 'ai/',
     klucz: 'akademia-ai',
-    misje: 13,
+    globalna: 'AKADEMIA',
+    tresc: ['js/content/spis.js', 'js/content/misje-0-2.js', 'js/content/misje-3-5.js', 'js/content/misje-6-8.js',
+      'js/content/misje-9-12.js', 'js/content/niezbednik.js', 'js/content/rodzic.js'],
+    v1: ['rozruch', 'karta-startowa', 'dopytuj', 'trudny-temat', 'porownaj', 'plan-na-kroki', 'kilka-wersji',
+      'zlap-blad', 'sprawy-domowe', 'jak-jeszcze', 'solo', 'zbuduj-1', 'zbuduj-2'],
+    kodV1: 'AKA1.',
     kolor: '#F2620F',
     kolorNast: '#FFD3B0',
     ikona:
@@ -37,7 +46,12 @@ window.KURSY = [
     opis: 'Arkusze Google od siatki do tabeli przestawnej',
     sciezka: 'arkusze/',
     klucz: 'akademia-arkusze',
-    misje: 15,
+    globalna: 'ARKUSZE',
+    tresc: ['js/content/spis.js', 'js/content/misje-0-3.js', 'js/content/misje-4-7.js', 'js/content/misje-8-11.js',
+      'js/content/misje-12-14.js', 'js/content/niezbednik.js', 'js/content/rodzic.js'],
+    v1: ['rozruch', 'tabela', 'przeciagnij', 'pierwsza-formula', 'suma', 'pinezka', 'sortuj', 'wykres',
+      'kolory', 'jezeli', 'daty', 'karty', 'przestawna', 'twoj-arkusz-1', 'twoj-arkusz-2'],
+    kodV1: 'ARK1.',
     kolor: '#34A853',
     kolorNast: '#B7E1C2',
     ikona:

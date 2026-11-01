@@ -3,7 +3,7 @@ window.AKADEMIA = window.AKADEMIA || {};
 window.AKADEMIA.missions = window.AKADEMIA.missions || [];
 window.AKADEMIA.missions.push(
 {
-  id: 9,
+  id: 'jak-jeszcze',
   title: 'Jak jeszcze możesz mi pomóc?',
   subtitle: 'Odkrywanie nowych zastosowań i porównanie trzech AI',
   technique: 'Odkrywanie',
@@ -52,7 +52,7 @@ window.AKADEMIA.missions.push(
   }
 },
 {
-  id: 10,
+  id: 'solo',
   title: 'Solo',
   subtitle: 'Zadanie bez ściągi. Sam dobierasz techniki.',
   technique: 'Wszystko razem',
@@ -88,7 +88,7 @@ window.AKADEMIA.missions.push(
   }
 },
 {
-  id: 11,
+  id: 'zbuduj-1',
   title: 'Zbuduj coś z AI, część 1',
   subtitle: 'Gra albo strona, w jednym pliku, na Twoim komputerze',
   technique: 'Tworzenie',
@@ -136,7 +136,7 @@ window.AKADEMIA.missions.push(
   }
 },
 {
-  id: 12,
+  id: 'zbuduj-2',
   title: 'Zbuduj coś z AI, część 2',
   subtitle: 'Ulepsz, napraw, pokaż kumplom',
   technique: 'Iteracja',

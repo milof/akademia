@@ -15,8 +15,9 @@ window.ARKUSZE.parent = {
         '<li><strong>Przycisk Kopiuj</strong> wkłada formułę albo całą tabelkę do schowka. Dziecko klika komórkę w Arkuszu i wciska Ctrl + V. Tabelki wklejają się od razu w kilka kolumn, więc wolne pisanie nie blokuje misji. Wartości ma podmieniać na swoje.</li>' +
         '<li><strong>Niezbędnik</strong> to ściąga wszystkich formuł i ścieżek w menu. Karty odblokowują się z misjami. Da się wydrukować.</li>' +
         '<li><strong>Dziennik odkryć</strong> to jedno zdanie po każdej misji. Po kilku tygodniach robi się z tego najlepszy dowód postępu.</li>' +
-        '<li><strong>Postęp zapisuje się tylko w tej przeglądarce</strong>, na tym komputerze. W Ustawieniach jest „kod zapisu” do przeniesienia postępu albo zrobienia kopii. Postęp Akademii AI i Akademii Arkuszy są osobne.</li>' +
-        '<li><strong>Imię</strong> nie jest nigdzie w kodzie strony. Ustawia się je lokalnie albo linkiem: dopisz do adresu strony <code>?imie=Imię</code>. Po otwarciu imię zapisuje się w przeglądarce i znika z adresu.</li>' +
+        '<li><strong>Postęp zapisuje się tylko w tej przeglądarce</strong>, osobno dla każdego domownika. Gdy domowników jest kilku, strona po otwarciu pyta, kto się uczy. Kod zapisu całej Akademii (wszystkie kursy, wszyscy domownicy) jest na stronie startowej, w <a href="../#rodzina">Rodzina i kopia</a>. Strona sama przypomina o kopii co kilka misji.</li>' +
+        '<li><strong>Imię</strong> nie jest nigdzie w kodzie strony. Domowników dodaje się w <a href="../#rodzina">Rodzina i kopia</a>. Tam jest też <strong>link-zakładka</strong>: otwiera Akademię bez hasła, od razu jako wybrany domownik. Wystarczy otworzyć go na komputerze dziecka i dodać do zakładek.</li>' +
+        '<li><strong>Raport dla taty</strong> jest na stronie startowej: kilka linijek o tym, co zaliczone i co w Dzienniku, do wklejenia w wiadomość. Kartę z Niezbędnika można też udostępnić linkiem, który otwiera się bez hasła.</li>' +
         '</ul>'
     },
     {

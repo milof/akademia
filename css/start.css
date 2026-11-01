@@ -58,6 +58,8 @@ code { font-family: var(--mono); font-size: .92em; background: var(--paper); bor
 }
 .nav a:hover, .nav button:hover { color: var(--ink); background: var(--paper); }
 .main { max-width: var(--maxw); margin: 0 auto; padding: 1rem 1.25rem 3rem; }
+/* Treść dostaje fokus z kodu (po bramce i wyborze domownika); ramka wokół całej strony tylko przeszkadza. */
+.main:focus { outline: none; }
 .foot {
   max-width: var(--maxw); margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; color: var(--steel); font-size: .9rem;
   display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; border-top: 1px solid var(--line);
@@ -171,3 +173,54 @@ html.locked body > *:not(#gate) { display: none !important; }
 .gate-note { color: var(--steel); font-size: .85rem; margin: 1rem 0 0; }
 .gate-card.shake { animation: shake .3s ease; }
 @keyframes shake { 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }
+
+/* ---- Liczby, nowości, kopia ---- */
+.podsumowanie + .podsumowanie { margin-top: 1.25rem; }
+.pasek b { flex: none; width: 7px; display: block; }
+.liczby { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem 1.5rem; }
+.liczba b { display: block; font-family: var(--display); font-weight: 800; font-size: 1.7rem; line-height: 1.1; }
+.liczba span { display: block; font-size: .88rem; color: var(--steel); margin-top: .2rem; }
+.baner, .nowosci {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  background: #FFF4EC; border: 1px solid #FFD3B0; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+}
+.baner p { margin: 0; max-width: 52ch; }
+.nowosci { display: block; background: var(--paper); border-color: var(--line); box-shadow: var(--shadow); }
+.nowosci .nadtytul { margin-bottom: .5rem; }
+.nowosci ul { margin: 0; padding-left: 1.2rem; }
+.rzad { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; margin-top: 1.25rem; }
+.rzad.ciasny { margin-top: 0; }
+.btn.jasny { background: var(--paper); color: var(--ink); }
+.btn.jasny:hover { background: var(--bed); }
+.btn.maly { padding: .45rem .9rem; font-size: .92rem; }
+.maly { font-size: .88rem; }
+.ukryte { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wroc { margin: 0 0 .5rem; }
+.wroc a { text-decoration: none; font-weight: 600; }
+.odstep { margin-top: 1.25rem; }
+textarea, select {
+  font: inherit; color: var(--ink); background: var(--paper); border: 2px solid var(--line); border-radius: var(--radius-sm);
+  padding: .6rem .8rem; max-width: 100%;
+}
+textarea { width: 100%; min-height: 5.5rem; font-family: var(--mono); font-size: .82rem; resize: vertical; }
+textarea:focus, select:focus { border-color: var(--ink); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 1.5rem 0; }
+kbd { font-family: var(--mono); font-size: .85em; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 0 .35em; background: var(--paper); }
+.rzad input[type=text] { width: auto; flex: 1 1 12rem; }
+.domownicy { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; gap: .9rem; }
+.domownik { display: flex; gap: .8rem; align-items: flex-start; }
+.domownik-srodek { flex: 1; min-width: 0; }
+.domownik-srodek p { margin: .35rem 0 0; }
+.kto-av { width: 2.1rem; height: 2.1rem; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 700; font-size: .95rem; flex: none; }
+.domownik .kto-av { margin-top: .3rem; }
+.wynik { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; }
+.wynik .link { flex: 1 1 100%; word-break: break-all; padding: .5rem .6rem; }
+.wynik-tekst { font-weight: 600; margin: 1rem 0 0; }
+.raport { white-space: pre-wrap; font-family: var(--mono); font-size: .88rem; line-height: 1.55; margin: 0; }
+
+/* ---- Publiczna karta z Niezbędnika ---- */
+.karta-publiczna { max-width: 640px; }
+.karta-publiczna h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+.karta-publiczna .wstep { max-width: none; }
+.do-kopii { background: var(--bed); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: .9rem 1rem; margin: 0 0 1rem; }
+.do-kopii pre { white-space: pre-wrap; font-family: var(--mono); font-size: .92rem; margin: 0 0 .75rem; }

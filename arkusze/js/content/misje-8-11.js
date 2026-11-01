@@ -3,7 +3,7 @@ window.ARKUSZE = window.ARKUSZE || {};
 window.ARKUSZE.missions = window.ARKUSZE.missions || [];
 window.ARKUSZE.missions.push(
 {
-  id: 8,
+  id: 'kolory',
   title: 'Kolory, które włączają się same',
   subtitle: 'Formatowanie warunkowe, pola wyboru i menu w komórce',
   technique: 'Formatowanie warunkowe',
@@ -52,7 +52,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 9,
+  id: 'jezeli',
   title: 'JEŻELI, czyli decyzja w formule',
   subtitle: 'Arkusz odpowiada „tak” albo „nie” i liczy tylko to, co pasuje',
   technique: 'JEŻELI i spółka',
@@ -107,7 +107,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 10,
+  id: 'daty',
   title: 'Daty, odliczanie i sklejanie słów',
   subtitle: 'Ile dni do urodzin i jak Arkusz łączy tekst',
   technique: 'Daty i tekst',
@@ -158,7 +158,7 @@ window.ARKUSZE.missions.push(
   }
 },
 {
-  id: 11,
+  id: 'karty',
   title: 'Karty gadają ze sobą',
   subtitle: 'Odwołania między kartami i WYSZUKAJ.PIONOWO, czyli cennik pod ręką',
   technique: 'WYSZUKAJ.PIONOWO',

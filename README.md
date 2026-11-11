@@ -3,7 +3,7 @@
 Strona startowa i kursy misji dla młodych ludzi, w jednym repozytorium, pod jednym adresem GitHub Pages. Statyczne strony bez budowania: HTML, CSS i JavaScript.
 
 - **Akademia** (katalog główny, `https://<login>.github.io/<repo>/`): ekran startowy. Każdy kurs jako ikona aplikacji, pod spodem kompletność każdego kursu: pasek podzielony na tyle kratek, ile kurs ma misji, i nazwa następnej misji.
-- **Akademia AI** (katalog `ai/`, `https://<login>.github.io/<repo>/ai/`): 13 misji o sprawnym używaniu AI (ChatGPT na koncie rodzica) w codziennym życiu.
+- **Akademia AI** (katalog `ai/`, `https://<login>.github.io/<repo>/ai/`): 14 misji po najwyżej 20 minut o sprawnym używaniu AI (ChatGPT na koncie rodzica) w codziennym życiu.
 - **Akademia Arkuszy** (katalog `arkusze/`, `https://<login>.github.io/<repo>/arkusze/`): 23 misje po 15–20 minut o Arkuszach Google od zera do poziomu średniego, na przykładzie sklepu z rzeczami z domu (Vinted, OLX): tabele, formuły, SUMA i spółka na Pulpicie, pinezka `$`, sortowanie, menu w komórce, formatowanie warunkowe, JEŻELI, daty, LICZ.JEŻELI i SUMA.JEŻELI, wykresy, sklejanie tekstu, MEDIANA z cen rynkowych, WYSZUKAJ.PIONOWO, tabela przestawna, baza wiedzy, ochrona i telefon, na koniec własny plik „Mój sklep”.
 
 Każdy kurs ma własne style, logikę i treść. Wspólne są bramka z hasłem (`js/gate.js`), spis kursów (`js/kursy.js`), zapis postępu z domownikami (`js/postep.js`) i sposób publikacji. Do tego publiczna strona jednej karty z Niezbędnika (`karta/`), jedyna bez hasła. Poniższe uwagi dotyczą obu kursów; tam, gdzie kursy się różnią, jest to zaznaczone.
@@ -31,12 +31,16 @@ To jest bramka, nie zamek. Zasłania stronę przed kimś, kto trafi na adres prz
 
 Każda misja ma stałą nazwę w polu `id` (np. `'karta-startowa'`). Postęp zapisuje się po tych nazwach, nie po numerach, więc misję można wstawić w dowolne miejsce, a zaliczone zostają zaliczone. Numer misji na stronie liczy się sam z kolejności.
 
-1. Dopisz obiekt misji w pliku z misjami kursu (`ai/js/content/misje-*.js` albo `arkusze/js/content/misje.js`), z nową nazwą w `id`. Nazwy raz użytej nie zmieniaj ani nie dawaj innej misji: wisi na niej postęp.
+1. Dopisz obiekt misji w pliku z misjami kursu (`ai/js/content/misje-*.js` albo `arkusze/js/content/misje.js`), z nową nazwą w `id`. Nazwy raz użytej nie zmieniaj ani nie dawaj innej misji: wisi na niej postęp. Pole `realWorld` to jedno-dwa zdania do ramki „Kto tego używa naprawdę” pod „Po co to”: kto w prawdziwej pracy robi to, czego uczy misja.
 2. Wstaw tę nazwę w `js/content/spis.js` kursu, w odpowiednie miejsce odpowiedniego rozdziału. Misja, której nie ma w spisie, nie pokazuje się na stronie (dobre na szkic).
 3. Dopisz `added: 'RRRR-MM-DD'` (dzień dodania). Kto zaczął kurs wcześniej, zobaczy przy misji plakietkę „nowa”, a na stronie startowej wpis w „Co nowego”. Plakietka znika po otwarciu misji.
 4. Karty Niezbędnika do tej misji dopisz w `js/content/niezbednik.js`: `mission` to nazwa misji, `id` to stały adres karty w linku do udostępnienia.
 
 Nowy rozdział to jeden obiekt na końcu listy w `spis.js` (`id`, `title`, `missions`). Kursy z jednym rozdziałem bez tytułu wyglądają jak dawniej: jedna lista misji.
+
+**Poprawka istniejącej misji.** Dopisz `updated: 'RRRR-MM-DD'` (dzień zmiany). Kto otworzył albo zaliczył misję przed tym dniem, zobaczy przy niej plakietkę „nowe triki”, a na stronie startowej wpis w „Co nowego”. Zaliczenie zostaje, plakietka znika po otwarciu misji.
+
+**Na inny dzień** (pole `bonus`, na razie tylko w Akademii AI). Misja AI mieści się w 20 minutach (`minutes`). Tematy, które się nie zmieściły, wpisz jako listę `{ title, text, prompt, tip }` (`prompt` i `tip` są opcjonalne). Strona pokazuje je jako karty pod „Teraz bez ściągi”, bez odhaczania i bez wpływu na zaliczenie.
 
 Kroki misji odhacza się po treści kroku. Wstawienie kroku w środek nie przesuwa ptaszków; poprawka literówki w kroku zdejmuje z niego ptaszka. Krok, który ma przetrwać każdą zmianę treści, może dostać własne `id`.
 
@@ -83,11 +87,21 @@ Imiona nie są nigdzie w kodzie. Domowników dodaje się w „Rodzina i kopia”
 
 Postęp (zaliczone misje, odhaczone kroki, otwarte nowości, Dziennik) zapisuje się w `localStorage` przeglądarki, osobno dla każdego kursu i domownika: klucz `<klucz kursu>:v2:<id domownika>`, np. `akademia-ai:v2:d…`. Listę domowników trzyma `akademia:domownicy`, a kto siedzi przy komputerze w tej karcie — `akademia:kto` w `sessionStorage`. Rola z bramki siedzi w kluczu `akademia:wejscie`.
 
-**Kod zapisu** jest jeden na całą Akademię: wszystkie kursy, wszyscy domownicy. Jest na stronie startowej, w „Rodzina i kopia”. Wczytanie kodu niczego nie kasuje, tylko dokłada: misja zaliczona tu albo w kodzie zostaje zaliczona. Stare kody z jednego kursu (`AKA1.`, `ARK1.`) też pasują. Po kilku nowych misjach od ostatniej kopii strona startowa i karta zaliczonej misji przypominają o kopii.
+**Kod zapisu** jest jeden na całą Akademię: wszystkie kursy, wszyscy domownicy, zlecenia. Jest na stronie startowej, w „Rodzina i kopia”. Wczytanie kodu niczego nie kasuje, tylko dokłada: misja zaliczona tu albo w kodzie zostaje zaliczona. Stare kody z jednego kursu (`AKA1.`, `ARK1.`) też pasują. Po kilku nowych misjach od ostatniej kopii strona startowa i karta zaliczonej misji przypominają o kopii.
 
 **Statystyki** na stronie startowej liczą się z prawdziwej treści kursów, którą `js/postep.js` ładuje z listy w `js/kursy.js`. Dopisana misja od razu zmienia liczby: nic się nie rozjeżdża. Dochodzą czas nauki według planu misji, misje w tym tygodniu i ostatnia aktywność. Raport dla taty (`#raport`) składa to w kilka linijek do wklejenia w wiadomość.
 
 **Przejście ze starego zapisu** dzieje się samo przy pierwszym wejściu. Stary zapis kursu (`akademia-ai:v1`, `akademia-arkusze:v1`) trafia do domownika o swoim imieniu; zapis bez imienia dołącza do jedynego nazwanego domownika. Numery misji zamieniają się na nazwy według list `v1` w `js/kursy.js`, kroki według treści misji. Stare klucze zostają nietknięte jako kopia bezpieczeństwa. Klucze `:podsumowanie` nie są już używane.
+
+## Zlecenia
+
+Zlecenie to prawdziwe zadanie od rodziny, które dziecko robi tym, czego nauczyło się w kursach: porównanie przed zakupem, plan wyjścia, budżet w arkuszu. Mieszka na stronie startowej pod `#zlecenia`, a otwarte zlecenia widać też na ekranie głównym.
+
+1. Rodzic dodaje zlecenie: co do zrobienia, co z tym zrobicie, dla kogo (domownik albo każdy), opcjonalnie termin i misja, która się przyda. Gotowe pomysły wypełniają formularz jednym kliknięciem. W trybie ucznia formularz jest schowany pod „Dla rodzica”, w trybie podglądu otwarty.
+2. Dziecko wpisuje wynik i oddaje.
+3. Rodzic dopisuje „co z tego wyszło” i zamyka. Zamknięte zlecenia zostają na liście „Co już zmieniły Twoje zlecenia” i trafiają do raportu dla taty.
+
+Zlecenia zapisują się w `localStorage` pod `akademia:zlecenia`, wspólnie dla całej przeglądarki, także w trybie podglądu (tak jak domownicy). Usuwać je można tylko w trybie podglądu. Usunięcie domownika usuwa jego zlecenia. W kodzie zapisu zlecenie wskazuje domownika po imieniu, bo id domowników są różne na każdym komputerze; wczytanie kodu dokłada nowe zlecenia i uzupełnia znane o wynik i „co z tego wyszło”.
 
 ## Udostępnianie karty
 
@@ -97,12 +111,12 @@ Każda karta Niezbędnika ma przycisk „Udostępnij kartę”. Kopiuje link do 
 
 Wspólne (katalog główny):
 
-- `index.html` – ekran startowy; `#rodzina` to domownicy, linki-zakładki i kod zapisu, `#raport` to raport dla taty
+- `index.html` – ekran startowy; `#rodzina` to domownicy, linki-zakładki i kod zapisu, `#raport` to raport dla taty, `#zlecenia` to zlecenia od rodziny
 - `css/start.css` – style strony startowej i karty (razem z bramką)
 - `js/gate.js` – bramka z hasłem, dwiema rolami i linkiem-zakładką, ładowana w `<head>` każdej strony
 - `js/kursy.js` – spis kursów: to jedyne miejsce, które wie, ile jest kursów i z jakich plików się składają
-- `js/postep.js` – domownicy, zapis postępu, ładowanie treści, statystyki, kod zapisu, przejście ze starego zapisu
-- `js/start.js` – kafelki, kompletność, liczby, nowości, raport, rodzina
+- `js/postep.js` – domownicy, zapis postępu, zlecenia, ładowanie treści, statystyki, kod zapisu, przejście ze starego zapisu
+- `js/start.js` – kafelki, kompletność, liczby, nowości, zlecenia (z pomysłami dla rodzica), raport, rodzina
 - `karta/index.html`, `js/karta.js` – publiczna strona jednej karty z Niezbędnika
 - `favicon.svg`, `robots.txt`, `.nojekyll`
 

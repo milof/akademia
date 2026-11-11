@@ -14,7 +14,7 @@ window.AKADEMIA.chapters = [
   {
     id: 'techniki',
     title: 'Techniki do zadań',
-    missions: ['trudny-temat', 'porownaj', 'plan-na-kroki', 'kilka-wersji', 'zlap-blad', 'sprawy-domowe', 'jak-jeszcze']
+    missions: ['trudny-temat', 'porownaj', 'plan-na-kroki', 'kilka-wersji', 'zlap-blad', 'sprawy-domowe', 'jak-jeszcze', 'ja-za-15-lat']
   },
   {
     id: 'final',

@@ -114,6 +114,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
 .callout.note { border-color: #E0B400; background: var(--warn-soft); }
 .callout.plain { border-color: var(--steel); background: var(--paper); }
 .callout p:last-child { margin: 0; }
+.callout.real { border-color: var(--sel); background: var(--sel-soft); }
+.real-label { display: block; font-family: var(--display); font-weight: 700; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--steel); margin-bottom: .2rem; }
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
 .hidden { display: none !important; }
 
@@ -198,6 +200,7 @@ table.sheet { border-collapse: collapse; width: 100%; font-size: .92rem; }
 .sheet td.warn { background: var(--bad-soft); color: var(--bad); }
 .sheet td.note { background: var(--warn-soft); }
 .sheet td.blue { background: var(--sel-soft); }
+.sheet td.mute { background: #F1F3F4; color: var(--steel); }
 .sheet td.fm { color: var(--sel-deep); font-family: var(--mono); font-size: .85rem; }
 .sheet td.sel { outline: 2px solid var(--sel); outline-offset: -2px; position: relative; }
 .sheet td.sel::after { content: ""; position: absolute; right: -4px; bottom: -4px; width: 7px; height: 7px; background: var(--sel); border: 1px solid #fff; z-index: 1; }

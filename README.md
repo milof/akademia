@@ -4,7 +4,7 @@ Strona startowa i kursy misji dla młodych ludzi, w jednym repozytorium, pod jed
 
 - **Akademia** (katalog główny, `https://<login>.github.io/<repo>/`): ekran startowy. Każdy kurs jako ikona aplikacji, pod spodem kompletność każdego kursu: pasek podzielony na tyle kratek, ile kurs ma misji, i nazwa następnej misji.
 - **Akademia AI** (katalog `ai/`, `https://<login>.github.io/<repo>/ai/`): 13 misji o sprawnym używaniu AI (ChatGPT na koncie rodzica) w codziennym życiu.
-- **Akademia Arkuszy** (katalog `arkusze/`, `https://<login>.github.io/<repo>/arkusze/`): 15 misji o Arkuszach Google od zera do poziomu średniego: tabele, formuły, SUMA i spółka, pinezka `$`, sortowanie, wykresy, formatowanie warunkowe, JEŻELI, daty, WYSZUKAJ.PIONOWO, tabela przestawna, własny projekt.
+- **Akademia Arkuszy** (katalog `arkusze/`, `https://<login>.github.io/<repo>/arkusze/`): 23 misje po 15–20 minut o Arkuszach Google od zera do poziomu średniego, na przykładzie sklepu z rzeczami z domu (Vinted, OLX): tabele, formuły, SUMA i spółka na Pulpicie, pinezka `$`, sortowanie, menu w komórce, formatowanie warunkowe, JEŻELI, daty, LICZ.JEŻELI i SUMA.JEŻELI, wykresy, sklejanie tekstu, MEDIANA z cen rynkowych, WYSZUKAJ.PIONOWO, tabela przestawna, baza wiedzy, ochrona i telefon, na koniec własny plik „Mój sklep”.
 
 Każdy kurs ma własne style, logikę i treść. Wspólne są bramka z hasłem (`js/gate.js`), spis kursów (`js/kursy.js`), zapis postępu z domownikami (`js/postep.js`) i sposób publikacji. Do tego publiczna strona jednej karty z Niezbędnika (`karta/`), jedyna bez hasła. Poniższe uwagi dotyczą obu kursów; tam, gdzie kursy się różnią, jest to zaznaczone.
 
@@ -31,7 +31,7 @@ To jest bramka, nie zamek. Zasłania stronę przed kimś, kto trafi na adres prz
 
 Każda misja ma stałą nazwę w polu `id` (np. `'karta-startowa'`). Postęp zapisuje się po tych nazwach, nie po numerach, więc misję można wstawić w dowolne miejsce, a zaliczone zostają zaliczone. Numer misji na stronie liczy się sam z kolejności.
 
-1. Dopisz obiekt misji w jednym z plików `js/content/misje-*.js` kursu, z nową nazwą w `id`. Nazwy raz użytej nie zmieniaj ani nie dawaj innej misji: wisi na niej postęp.
+1. Dopisz obiekt misji w pliku z misjami kursu (`ai/js/content/misje-*.js` albo `arkusze/js/content/misje.js`), z nową nazwą w `id`. Nazwy raz użytej nie zmieniaj ani nie dawaj innej misji: wisi na niej postęp.
 2. Wstaw tę nazwę w `js/content/spis.js` kursu, w odpowiednie miejsce odpowiedniego rozdziału. Misja, której nie ma w spisie, nie pokazuje się na stronie (dobre na szkic).
 3. Dopisz `added: 'RRRR-MM-DD'` (dzień dodania). Kto zaczął kurs wcześniej, zobaczy przy misji plakietkę „nowa”, a na stronie startowej wpis w „Co nowego”. Plakietka znika po otwarciu misji.
 4. Karty Niezbędnika do tej misji dopisz w `js/content/niezbednik.js`: `mission` to nazwa misji, `id` to stały adres karty w linku do udostępnienia.
@@ -117,5 +117,7 @@ Akademia AI (katalog `ai/`):
 - `js/content/rodzic.js` – strona dla rodzica
 
 Akademia Arkuszy (katalog `arkusze/`) ma ten sam układ. Różnice: paleta zielona, odznaka postępu to arkusz wypełniany komórka po komórce, a przykład w misji to podgląd arkusza (pole `example.sheets`) zamiast rozmowy z AI. Krok misji ma pole `copy` (formuła albo tabelka do wklejenia; kolumny rozdziela `\t`, wiersze `\n`), a zamiast sekcji „Dopytaj” jest „Spróbuj też” (pole `variants`).
+
+Wszystkie misje Arkuszy są w jednym pliku `arkusze/js/content/misje.js`, bo na jego górze stoją dane przykładowego sklepu (tablice `RZECZY` i `CENY`) i pomocnik, który z nich robi tabelki do wklejenia i podglądy arkusza (`magazyn()`, `pulpit()`, `ceny()`, `wklej()`). Dzięki temu liczby w podglądach i na listach „Po czym poznasz” zawsze zgadzają się z tym, co dziecko wkleja. Zmiana ceny albo statusu w `RZECZY` przelicza wszystko. Pliki treści ładują się równolegle, więc pomocnik musi być w tym samym pliku co misje, które go używają.
 
 Stare linki prosto do misji Akademii AI (`/#/misja/3`, z czasów gdy kurs mieszkał w katalogu głównym) strona startowa przekierowuje do `/ai/#/misja/3`, a kurs zamienia numer na stałą nazwę misji.

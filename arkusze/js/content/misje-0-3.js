@@ -14,6 +14,7 @@ window.ARKUSZE.missions.push(
     'Arkusz kalkulacyjny to wielka kartka w kratkę. Każda kratka to **komórka** i ma swój adres, jak w grze w statki: kolumna literą, wiersz cyfrą. **B3** to trzecia kratka w kolumnie B. Tyle wystarczy, żeby zacząć.',
     'W komórce może być tekst, liczba albo **formuła**, czyli działanie, które Arkusz liczy za Ciebie. Formuły są od misji 3. Dziś: zakładasz plik, uczysz się poruszać i robisz pierwszą tabelkę.'
   ],
+  realWorld: 'Księgowe, nauczyciele, trenerzy i kierownicy sklepów zaczynają dzień od otwarcia arkusza. Adres komórki to ich wspólny język: „zerknij na D14” wystarczy, żeby wszyscy patrzyli w to samo miejsce.',
   example: {
     intro: 'Tak wygląda mała tabelka po misji 0. Komórka B3 jest zaznaczona: ma niebieską ramkę, a jej adres widać po lewej, nad siatką.',
     sheets: [
@@ -61,6 +62,7 @@ window.ARKUSZE.missions.push(
     'Surowa tabelka działa, ale trudno ją czytać. Kilka ruchów zmienia ją w coś, co wygląda jak z aplikacji: **gruby nagłówek**, **kolor**, **szerokość kolumn** dopasowana do treści i **zablokowany pierwszy wiersz**, żeby nagłówek nie uciekał przy przewijaniu.',
     'Do tego **format liczb**: Arkusz sam dopisze `zł` albo `%` i wyrówna liczby. Ty wpisujesz tylko cyfry.'
   ],
+  realWorld: 'Grafik dyżurów w szpitalu, plan lekcji, cennik w sklepie: ktoś musiał je sformatować tak, żeby nikt się nie pomylił. Gruby nagłówek i kwoty w złotych to nie ozdoba, tylko mniej pomyłek.',
   example: {
     intro: 'Ta sama tabelka po pięciu minutach: pogrubiony, kolorowy nagłówek, kolumny na miarę, kwoty w złotówkach.',
     sheets: [
@@ -112,6 +114,7 @@ window.ARKUSZE.missions.push(
     'W prawym dolnym rogu zaznaczonej komórki jest mały niebieski kwadracik. To **uchwyt wypełniania**. Chwytasz go i ciągniesz w dół, a Arkusz dopisuje dalszy ciąg: 1, 2, 3... albo poniedziałek, wtorek, środa... albo kolejne daty.',
     'To samo zrobisz później z formułami. Napiszesz jedną, przeciągniesz, i masz ją w całej kolumnie. Dziś uczysz rękę.'
   ],
+  realWorld: 'Kto układa grafik pracy na cały miesiąc, na przykład w sklepie, nie wpisuje 30 dat ręcznie. Wpisuje pierwszą i przeciąga. Sekundy zamiast kwadransa.',
   example: {
     intro: 'Wpisane ręcznie: tylko wiersz 1 i wiersz 2. Resztę Arkusz dopisał sam. Kolumna D pokazuje, że gdy w komórce jest zwykłe słowo, uchwyt je kopiuje zamiast wymyślać ciąg.',
     sheets: [
@@ -161,6 +164,7 @@ window.ARKUSZE.missions.push(
     'Formuła zaczyna się od **=**. Gdy wpiszesz `=2+3` i [[Enter]], w komórce pojawia się 5. Ale prawdziwa moc jest gdzie indziej: zamiast liczb wpisujesz **adresy komórek**. `=B2*C2` mnoży to, co jest w B2, przez to, co jest w C2. Zmienisz B2, wynik zmienia się sam.',
     'Druga rzecz: formułę piszesz raz i **przeciągasz uchwytem** w dół. W każdym wierszu Arkusz sam podmienia numer wiersza. Jedna formuła, cała kolumna.'
   ],
+  realWorld: 'Każda faktura i każdy paragon to ilość razy cena. Sprzedawca wpisuje cenę raz, a arkusz liczy resztę. Gdy cena się zmieni, nie przelicza niczego ręcznie.',
   example: {
     intro: 'Impreza dla kumpli. Ile kosztują napoje, jeśli jedna butelka to 3,50 zł, a bierzesz 6? Arkusz liczy, Ty patrzysz.',
     sheets: [

@@ -3,15 +3,15 @@ window.ARKUSZE = window.ARKUSZE || {};
 window.ARKUSZE.parent = {
   title: 'Dla rodzica',
   intro: [
-    'Ta strona jest dla Ciebie. Akademia Arkuszy to 15 misji po 20-30 minut, do przejścia po kolei, jedna lub dwie w tygodniu. Poziom: od zera do środka, czyli od „co to komórka” do JEŻELI, WYSZUKAJ.PIONOWO i tabeli przestawnej. Celem nie jest znajomość menu, tylko sposób myślenia: dane osobno, podsumowanie osobno, formuła zamiast liczenia w głowie, zakres z zapasem, sprawdzenie, czy wynik ma sens.',
-    'Wszystkie misje oprócz dwóch ostatnich dziecko robi w jednym pliku „Akademia”, każdą na osobnej karcie. Misje 13 i 14 to własny plik na własny temat. Stan na wrzesień 2026: Google zmienia nazwy w menu częściej, niż byśmy chcieli, więc ścieżki poniżej traktuj jako punkt startu.'
+    'Ta strona jest dla Ciebie. Akademia Arkuszy to 16 misji po 20-30 minut, do przejścia po kolei, jedna lub dwie w tygodniu. Poziom: od zera do środka, czyli od „co to komórka” do JEŻELI, WYSZUKAJ.PIONOWO i tabeli przestawnej. Celem nie jest znajomość menu, tylko sposób myślenia: dane osobno, podsumowanie osobno, formuła zamiast liczenia w głowie, zakres z zapasem, sprawdzenie, czy wynik ma sens.',
+    'Wszystkie misje oprócz dwóch ostatnich dziecko robi w jednym pliku „Akademia”, każdą na osobnej karcie. Misje 14 i 15 to własny plik na własny temat. Stan na wrzesień 2026: Google zmienia nazwy w menu częściej, niż byśmy chcieli, więc ścieżki poniżej traktuj jako punkt startu.'
   ],
   sections: [
     {
       title: 'Jak to działa',
       html: '<ul>' +
         '<li><strong>Misje idą po kolei</strong>, bo każda korzysta z poprzedniej. Możesz je odblokować wszystkie naraz przełącznikiem na dole tej strony.</li>' +
-        '<li><strong>Każda misja</strong> ma: po co to, podgląd arkusza (jak ma wyglądać wynik), kroki z formułami i tabelkami do skopiowania, listę „po czym poznasz, że wyszło”, warianty do spróbowania, zadanie bez ściągi, odkrycie i wpis do Dziennika.</li>' +
+        '<li><strong>Każda misja</strong> ma: po co to (z ramką „Kto tego używa naprawdę”), podgląd arkusza (jak ma wyglądać wynik), kroki z formułami i tabelkami do skopiowania, listę „po czym poznasz, że wyszło”, warianty do spróbowania, zadanie bez ściągi, odkrycie i wpis do Dziennika.</li>' +
         '<li><strong>Przycisk Kopiuj</strong> wkłada formułę albo całą tabelkę do schowka. Dziecko klika komórkę w Arkuszu i wciska Ctrl + V. Tabelki wklejają się od razu w kilka kolumn, więc wolne pisanie nie blokuje misji. Wartości ma podmieniać na swoje.</li>' +
         '<li><strong>Niezbędnik</strong> to ściąga wszystkich formuł i ścieżek w menu. Karty odblokowują się z misjami. Da się wydrukować.</li>' +
         '<li><strong>Dziennik odkryć</strong> to jedno zdanie po każdej misji. Po kilku tygodniach robi się z tego najlepszy dowód postępu.</li>' +
@@ -34,13 +34,23 @@ window.ARKUSZE.parent = {
         '<li><strong>Konto dziecka w Family Link.</strong> Dziecko ma własny Dysk, a Ty widzisz i kontrolujesz konto z aplikacji Family Link. Plik „Akademia” udostępnia Tobie w misji 1, więc masz do niego wgląd. Ta droga jest czystsza: dziecko nie ogląda Twoich plików. <a href="https://support.google.com/families/answer/7103338?hl=pl" target="_blank" rel="noopener">Jak założyć konto dziecka</a>.</li>' +
         '<li><strong>Twoje konto.</strong> Zadziała od razu, ale dziecko widzi wtedy cały Twój Dysk, pocztę w tej samej przeglądarce i historię. Jeśli wybierasz tę drogę, załóż osobny profil w przeglądarce Chrome tylko do Arkuszy, folder „Akademia” na Dysku i bądź w pobliżu.</li>' +
         '</ol>' +
-        '<p>Dziecko nie zakłada konta samo. Zrób to z nim przed misją 0, tak samo jak instalację aplikacji Arkusze Google na telefonie przed misją 14.</p>'
+        '<p>Dziecko nie zakłada konta samo. Zrób to z nim przed misją 0, tak samo jak instalację aplikacji Arkusze Google na telefonie przed misją 15.</p>'
     },
     {
       title: 'Region i język: jedna rzecz do ustawienia',
       html: '<p>Kurs zakłada arkusz z <strong>regionem Polska</strong>. Wtedy funkcje mają polskie nazwy (SUMA, JEŻELI, WYSZUKAJ.PIONOWO), części formuły rozdziela <strong>średnik</strong>, a liczby mają przecinek dziesiętny. Wszystkie formuły w Akademii są w tym zapisie. W arkuszu z regionem Stany Zjednoczone te same formuły dadzą błąd, bo tam funkcje są po angielsku, a części rozdziela przecinek.</p>' +
         '<p>Region sprawdza się w każdym pliku osobno: Plik → Ustawienia → Ustawienia regionalne. Dziecko robi to w misji 0, warto zrobić to razem. Nowe pliki dziedziczą region z języka konta Google, więc przy koncie ustawionym na polski zwykle nie trzeba nic zmieniać. <a href="https://support.google.com/docs/answer/58515?hl=pl" target="_blank" rel="noopener">Ustawienia regionalne arkusza</a>.</p>' +
         '<p>Dwie różnice względem Excela, które dziecko może spotkać w poradnikach: największa liczba to w Arkuszach Google <strong>MAX</strong> (w Excelu MAKS), a błąd „nie znaleziono” to <strong>#N/A</strong> (w Excelu #N/D). Karta „Po angielsku” w Niezbędniku tłumaczy polskie nazwy na angielskie, żeby poradniki z YouTube były zrozumiałe.</p>'
+    },
+    {
+      title: 'Żeby nauka przydawała się od razu',
+      html: '<p>Zdanie „to Ci się przyda w przyszłości” rzadko działa. Dla 10-latka przyszłość jest daleko, a z ust dorosłego brzmi jak obowiązek. Lepiej działają dwie rzeczy: nauka, która przydaje się <strong>już w tym tygodniu</strong>, i związek z dorosłym życiem, który dziecko <strong>odkrywa samo</strong>. Akademia ma na to trzy narzędzia.</p>' +
+        '<ul>' +
+        '<li><strong>Zlecenia</strong> (strona startowa, <a href="../#zlecenia">Zlecenia</a>). Dajesz prawdziwe zadanie, które rodzina i tak ma do zrobienia: budżet na prezent, lista zakupów na grilla z cenami, tabela wyników meczów na podwórku. Dziecko robi je w arkuszu i wpisuje wynik. Ty dopisujesz, <em>co z tego wyszło</em>: „wydaliśmy tyle, ile wyszło w Twoim arkuszu”, „poszliśmy z Twoją listą do sklepu”. To zdanie jest najważniejsze, bo łączy naukę z prawdziwym skutkiem. Wystarczy jedno zlecenie na tydzień albo dwa.</li>' +
+        '<li><strong>Misja „Kto w pracy liczy w arkuszu?”</strong> (misja 13). Dziecko robi ankietę wśród dorosłych z rodziny i liczy formułą, ilu z nich używa arkuszy w pracy. Odpowiedz jako pierwszy i pokaż mu jeden prawdziwy arkusz ze swojej pracy, bez danych firmy. Niech znajdzie w nim rzeczy, które zna z Akademii.</li>' +
+        '<li><strong>Ramka „Kto tego używa naprawdę”</strong> w każdej misji, pod „Po co to”. Jedno-dwa zdania o tym, kto w prawdziwej pracy robi to, czego uczy misja. Jeśli znasz kogoś takiego, opowiedz o nim: znajomy człowiek działa mocniej niż przykład z ekranu.</li>' +
+        '</ul>' +
+        '<p>Czego unikać: punktów i nagród za samo zaliczanie misji. Taka nagroda łatwo staje się celem zamiast ciekawości. Lepsza nagroda to „kupiliśmy to, co wyszło w Twojej tabeli”.</p>'
     },
     {
       title: 'Twoja rola',
@@ -58,7 +68,7 @@ window.ARKUSZE.parent = {
       html: '<p>Trzy zasady, które dziecko poznaje w misji 0: konto od rodzica i pliki udostępniane tylko rodzicowi; bez haseł, nazwisk kolegów i adresów w arkuszu; nic nie ginie na zawsze, bo jest Ctrl + Z i historia zmian. Powtarzaj je od czasu do czasu własnymi słowami.</p>' +
         '<p>Na co zwracać uwagę:</p>' +
         '<ul>' +
-        '<li><strong>Link „dla każdej osoby”.</strong> W oknie Udostępnij pole „Dostęp ogólny” ma zostać na „Ograniczony”. Link dla każdej osoby, kto go ma, to publiczny plik. W misji 14 dziecko uczy się tej różnicy, ale to Ty decydujesz, czy liga kumpli może być udostępniona kumplom, i na jakie adresy.</li>' +
+        '<li><strong>Link „dla każdej osoby”.</strong> W oknie Udostępnij pole „Dostęp ogólny” ma zostać na „Ograniczony”. Link dla każdej osoby, kto go ma, to publiczny plik. W misji 15 dziecko uczy się tej różnicy, ale to Ty decydujesz, czy liga kumpli może być udostępniona kumplom, i na jakie adresy.</li>' +
         '<li><strong>Dane kolegów.</strong> Imiona w lidze są w porządku. Nazwiska, adresy, numery telefonów, zdjęcia: nie. Jeśli coś takiego trafi do arkusza, usuńcie razem i porozmawiajcie, dlaczego.</li>' +
         '<li><strong>Twoje pliki na Dysku.</strong> Jeśli dziecko pracuje na Twoim koncie, widzi wszystko, co masz na Dysku. Osobny profil w Chrome to minimum. Family Link rozwiązuje to najczyściej.</li>' +
         '<li><strong>Kasowanie przez przypadek.</strong> Zdarza się każdemu. Plik → Historia zmian pozwala wrócić do wersji z dowolnego dnia. Pokaż to dziecku raz, zanim będzie potrzebne.</li>' +

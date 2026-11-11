@@ -12,6 +12,7 @@ window.ARKUSZE.missions.push(
     'Dodawanie 30 komórek plusem to męka. **Funkcja** robi to jednym słowem: `=SUMA(D2:D31)`. Dwukropek znaczy „od... do...”, więc `D2:D31` to wszystkie komórki od D2 do D31. Taki kawałek nazywa się **zakres**.',
     'Pięć funkcji załatwia większość spraw: **SUMA** dodaje, **ŚREDNIA** liczy średnią, **MIN** i **MAX** znajdują najmniejszą i największą liczbę, **ILE.LICZB** liczy, ile jest liczb. Wszystkie działają tak samo: nazwa, nawias, zakres, nawias.'
   ],
+  realWorld: 'Skarbnik klubu sportowego liczy SUMĄ składki, a trener ŚREDNIĄ sprawdza, ile zawodnik przebiega na treningu. MIN i MAX od razu mówią: najlepszy wynik i najgorszy dzień.',
   example: {
     intro: 'Podsumowanie wydatków. Pięć formuł, każda z tym samym zakresem D2:D6.',
     sheets: [
@@ -62,6 +63,7 @@ window.ARKUSZE.missions.push(
     'Przeciągasz formułę w dół i numer wiersza się zmienia. Zwykle o to chodzi. Ale czasem jedna komórka ma **zostać na miejscu**: kurs waluty, stawka, rabat, liczba kumpli. Wtedy przypinasz ją **pinezką**: znakiem dolara przed literą i przed cyfrą, `$B$1`.',
     'Przypięty adres nie rusza się przy przeciąganiu. Zmieniasz kurs w jednej komórce i wszystkie ceny przeliczają się same. Bez tego musiałbyś poprawiać każdą formułę osobno.'
   ],
+  realWorld: 'Sklep, który sprowadza części rowerowe z Niemiec, trzyma kurs euro w jednej komórce. Kurs się zmienia, ktoś poprawia jedną liczbę i cały cennik przelicza się sam.',
   example: {
     intro: 'Ceny gier są w euro, a Ty chcesz je w złotówkach. Kurs euro stoi w jednej komórce, B1.',
     sheets: [
@@ -110,6 +112,7 @@ window.ARKUSZE.missions.push(
     'Tabelka z 30 wierszami to bałagan, dopóki jej nie **posortujesz**: od największej liczby, alfabetycznie, od najnowszej daty. Arkusz przestawia całe wiersze, więc imię zostaje przy swoich punktach.',
     '**Filtr** to lejek: pokazuje tylko wiersze, które spełniają warunek, reszta chowa się na chwilę. Nic nie znika, tylko się chowa. Idealne do pytań „pokaż tylko wyniki Kuby” albo „tylko wydatki na słodycze”.'
   ],
+  realWorld: 'Tabela każdej ligi piłkarskiej to posortowany arkusz: punkty od największej. Kierownik sklepu filtruje tabelę sprzedaży, żeby zobaczyć tylko jeden dzień albo tylko jeden towar.',
   example: {
     intro: 'Liga kumpli: kto, w co, ile punktów. Najpierw sortowanie, potem filtr.',
     sheets: [
@@ -161,6 +164,7 @@ window.ARKUSZE.missions.push(
     'Liczby w tabelce trzeba czytać. Wykres widzi się od razu: kto ma najwięcej, na co idzie najwięcej kasy, czy coś rośnie. Arkusz robi wykres z zaznaczonych komórek jednym kliknięciem, a Ty go tylko poprawiasz.',
     'Trzy typy załatwiają większość: **kolumnowy** porównuje (kto ile), **kołowy** dzieli całość na kawałki (na co poszło), **liniowy** pokazuje zmianę w czasie (jak rośnie). Zły typ to najczęstszy błąd: kołowy do porównania 10 osób to plama.'
   ],
+  realWorld: 'Komentatorzy sportowi, prezenterzy pogody i dziennikarze pokazują liczby wykresami, bo widz ma na nie kilka sekund. Ktoś te wykresy przygotował i bardzo często zaczynał od arkusza.',
   example: {
     intro: 'Do wykresu potrzebujesz małej tabelki: nazwy w jednej kolumnie, liczby w drugiej. Zaznaczasz ją razem z nagłówkiem i klikasz Wstaw → Wykres. Arkusz zgaduje typ, a Ty poprawiasz w Edytorze wykresów po prawej.',
     sheets: [

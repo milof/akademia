@@ -12,6 +12,7 @@ window.ARKUSZE.missions.push(
     'Zamiast kolorować komórki ręcznie, dajesz Arkuszowi **regułę**: „jeśli liczba jest większa niż 40, zrób zielone tło”. Kolor włącza się sam, gdy warunek jest spełniony, i gaśnie, gdy przestaje. To **formatowanie warunkowe**.',
     'Do tego dwie rzeczy, które robią z tabelki aplikację: **pole wyboru** (kliknięcie odhacza) i **menu w komórce** (wybierasz z listy zamiast pisać, bez literówek).'
   ],
+  realWorld: 'Magazynier ustawia regułę: towar, którego zostało mniej niż 5 sztuk, świeci na czerwono. Kolor włącza się sam, więc nikt nie musi przeglądać setek wierszy, żeby wiedzieć, co zamówić.',
   example: {
     intro: 'Lista słówek z angielskiego. Kliknięcie w pole wyboru odhacza słowo. Reguła koloruje na żółto wiersze, których jeszcze nie umiesz.',
     sheets: [
@@ -61,6 +62,7 @@ window.ARKUSZE.missions.push(
     '**JEŻELI** to pytanie z dwiema odpowiedziami: `=JEŻELI(C2>40;"wygrana";"przegrana")`. Jeśli C2 jest większe niż 40, komórka pokazuje „wygrana”, jeśli nie, „przegrana”. Trzy części oddzielone średnikami: warunek, co gdy tak, co gdy nie.',
     'Dwie kuzynki robią to na całej kolumnie naraz: **LICZ.JEŻELI** liczy komórki, które spełniają warunek (ile słów umiem), **SUMA.JEŻELI** sumuje tylko te wiersze, które pasują (ile poszło na słodycze). Z nich robi się prawdziwe podsumowania.'
   ],
+  realWorld: 'Sklep internetowy ma w środku mnóstwo decyzji typu JEŻELI: jeżeli zamówienie powyżej 100 zł, dostawa za darmo. Trener liczy LICZ.JEŻELI, ile treningów ktoś opuścił.',
   example: {
     intro: 'Dwa podsumowania, które liczą się same, gdy odhaczasz słowa i dopisujesz wydatki.',
     sheets: [
@@ -116,6 +118,7 @@ window.ARKUSZE.missions.push(
     'Data w Arkuszu to liczba w przebraniu: liczba dni od pewnego dnia dawno temu. Dlatego daty można odejmować. `=B2-DZIŚ()` daje, ile dni zostało do daty w B2. **DZIŚ()** zawsze zwraca dzisiejszą datę, więc odliczanie samo maleje każdego dnia.',
     'Tekst też ma swoje sztuczki. Znak **&** skleja: `=A2&" "&B2` łączy dwa słowa ze spacją. **DŁ** liczy litery, **LITERY.WIELKIE** krzyczy. Przydaje się przy słówkach, listach i podpisach.'
   ],
+  realWorld: 'Organizatorzy obozów liczą formułami dni do wyjazdu i terminy wpłat. Biblioteka liczy, ile dni książka jest przetrzymana. To to samo odejmowanie dat, które robisz dziś.',
   example: {
     intro: 'Odliczanie do ważnych dni. Stan na 11 września 2026. Jutro wszystkie liczby będą o jeden mniejsze, same.',
     sheets: [
@@ -167,6 +170,7 @@ window.ARKUSZE.missions.push(
     'Formuła może sięgać na inną kartę: `=Kieszonkowe!D8` bierze komórkę D8 z karty „Kieszonkowe”. Wykrzyknik znaczy „z karty”. Dzięki temu robisz kartę **Podsumowanie**, która zbiera najważniejsze liczby ze wszystkich kart w jednym miejscu.',
     '**WYSZUKAJ.PIONOWO** to szukanie w cenniku: podajesz nazwę, a funkcja znajduje ją w pierwszej kolumnie tabelki i przynosi wartość z innej kolumny tego wiersza. Wpisujesz „pizza”, dostajesz cenę. Słówko po angielsku, dostajesz tłumaczenie. To jedna z najważniejszych funkcji w każdej pracy z tabelami.'
   ],
+  realWorld: 'Kasa w sklepie robi to przy każdym zakupie: skanuje kod, szuka go w cenniku i przynosi cenę. Ty budujesz ten sam mechanizm, tylko w małym cenniku i na własne oczy.',
   example: {
     intro: 'Cennik na jednej karcie, lista na imprezę na drugiej. Wpisujesz, co kupujesz, a cena przychodzi sama.',
     sheets: [

@@ -198,9 +198,16 @@
     if (!m.added || s.done[m.id] || (s.seen && s.seen[m.id])) return false;
     return Date.parse(m.added + 'T00:00:00') > s.createdAt;
   }
+  // Misja jest odświeżona, gdy domownik otworzył ją albo zaliczył przed dniem z pola `updated`
+  // (RRRR-MM-DD) i od tego dnia jej nie otwierał. Plakietka znika po otwarciu misji.
+  function odswiezona(m, s) {
+    if (!m.updated) return false;
+    var kiedy = Math.max(s.done[m.id] || 0, (s.seen && s.seen[m.id]) || 0);
+    return kiedy > 0 && kiedy < Date.parse(m.updated + 'T00:00:00');
+  }
   function staty(kursId, s) {
     var S = spis(kursId), tydzien = poczatekTygodnia();
-    var z = { wszystkie: S.misje.length, zrobione: 0, minuty: 0, tydzien: 0, ostatnio: 0, wpisy: (s.journal || []).length, nastepna: null, nowe: [], rozdzialy: [] };
+    var z = { wszystkie: S.misje.length, zrobione: 0, minuty: 0, tydzien: 0, ostatnio: 0, wpisy: (s.journal || []).length, nastepna: null, nowe: [], odswiezone: [], rozdzialy: [] };
     S.misje.forEach(function (m) {
       var t = s.done[m.id];
       if (t) {
@@ -209,6 +216,7 @@
         if (t > z.ostatnio) z.ostatnio = t;
       } else if (!z.nastepna) z.nastepna = m;
       if (nowa(m, s)) z.nowe.push(m);
+      else if (odswiezona(m, s)) z.odswiezone.push(m);
     });
     (s.journal || []).forEach(function (e) { if (e.d > z.ostatnio) z.ostatnio = e.d; });
     z.rozdzialy = S.rozdzialy.map(function (r) {
@@ -281,7 +289,8 @@
       var x = a.steps[id] = a.steps[id] || {};
       Object.keys(b.steps[id] || {}).forEach(function (sk) { if (b.steps[id][sk]) x[sk] = true; });
     });
-    Object.keys(b.seen || {}).forEach(function (id) { if (!a.seen[id]) a.seen[id] = b.seen[id]; });
+    // Późniejsze otwarcie wygrywa, żeby po wczytaniu kodu nie wracała plakietka „nowe triki”.
+    Object.keys(b.seen || {}).forEach(function (id) { if (!a.seen[id] || b.seen[id] > a.seen[id]) a.seen[id] = b.seen[id]; });
     var juz = {};
     a.journal.forEach(function (e) { juz[e.d + '|' + e.t] = 1; });
     b.journal.forEach(function (e) { if (!juz[e.d + '|' + e.t]) a.journal.push(e); });
@@ -465,7 +474,7 @@
     profile: profile, profil: profil, poImieniu: poImieniu, aktywny: aktywny, dodaj: dodaj,
     zmienImie: zmienImie, usunProfil: usunProfil, wybierz: wybierz, kolor: kolor,
     tresc: tresc, spis: spis, kluczKroku: kluczKroku,
-    stan: stan, zapisz: zapisz, wyzeruj: wyzeruj, staty: staty, nowa: nowa,
+    stan: stan, zapisz: zapisz, wyzeruj: wyzeruj, staty: staty, nowa: nowa, odswiezona: odswiezona,
     zlecenia: zlecenia, zleceniaDla: zleceniaDla, dodajZlecenie: dodajZlecenie, zmienZlecenie: zmienZlecenie, usunZlecenie: usunZlecenie,
     eksport: eksport, wczytaj: wczytaj, oznaczKopie: oznaczKopie, ostatniaKopia: ostatniaKopia, czasNaKopie: czasNaKopie,
     gotowe: gotowe, przycisk: przycisk

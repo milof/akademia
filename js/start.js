@@ -129,6 +129,10 @@
         nowe.push('<li><a href="' + esc(x.kurs.sciezka) + '#/misja/' + esc(m.id) + '">' + esc(x.kurs.nazwa) +
           ', misja ' + m.nr + ': ' + esc(m.title) + '</a></li>');
       });
+      x.z.odswiezone.forEach(function (m) {
+        nowe.push('<li><a href="' + esc(x.kurs.sciezka) + '#/misja/' + esc(m.id) + '">' + esc(x.kurs.nazwa) +
+          ', misja ' + m.nr + ': ' + esc(m.title) + '</a> (nowe triki w misji, którą już znasz)</li>');
+      });
     });
     var kopia = P.czasNaKopie()
       ? '<div class="baner"><p><b>Czas na kopię.</b> Od ostatniej kopii przybyło kilka misji. Kod zapisu ratuje postęp, gdyby przeglądarka go zgubiła.</p>' +

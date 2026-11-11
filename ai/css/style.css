@@ -212,7 +212,9 @@ a.mission-row:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
 .tcard { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .5rem; }
 .tcard.locked { opacity: .55; background: transparent; }
-.tcard h2 { margin: 0; font-size: 1.05rem; }
+.tcard h2, .tcard h3 { margin: 0; font-size: 1.05rem; }
+/* „Na inny dzień” w misji: szersze karty, bo w każdej siedzi prompt z przyciskiem Kopiuj. */
+.cards.bonus { grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
 .tcard .when { color: var(--steel); font-size: .92rem; }
 .tcard .prompt { margin: .25rem 0 0; font-size: .88rem; }
 

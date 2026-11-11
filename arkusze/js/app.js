@@ -138,7 +138,7 @@
       const done = isDone(m.id), unlocked = isUnlocked(m.id), isNext = String(m.id) === String(nid);
       const cls = 'mission-row' + (done ? ' done' : '') + (isNext ? ' next' : '') + (!unlocked ? ' locked' : '');
       const tag = done ? '<span class="tag ok">zaliczona</span>' : isNext ? '<span class="tag hot">następna</span>' : !unlocked ? '<span class="tag">po kolei</span>' : '';
-      const fresh = P.nowa(m, state) ? '<span class="tag new">nowa</span> ' : '';
+      const fresh = P.nowa(m, state) ? '<span class="tag new">nowa</span> ' : P.odswiezona(m, state) ? '<span class="tag new">nowe triki</span> ' : '';
       const inner = `${badge(m.nr, done ? 'done' : isNext ? 'next' : '')}<span><span class="title">${esc(m.title)}</span><br><span class="sub">${esc(m.subtitle)}</span></span><span class="meta">${m.minutes} min<br>${fresh}${tag}</span>`;
       return unlocked ? `<li><a class="${cls}" href="#/misja/${m.id}">${inner}</a></li>` : `<li><div class="${cls}" aria-disabled="true">${inner}</div></li>`;
     };
@@ -161,7 +161,7 @@
       const nid = nextId();
       return head + `<div class="callout note"><p><strong>Ta misja czeka na swoją kolej.</strong> Każda korzysta z poprzedniej, dlatego idziemy po kolei. Teraz jest misja ${byId(nid).nr}: <a href="#/misja/${nid}">${esc(byId(nid).title)}</a>.</p></div>`;
     }
-    if (!state.seen[m.id]) { state.seen[m.id] = Date.now(); save(); } // znika plakietka „nowa”
+    if (!state.seen[m.id] || P.odswiezona(m, state)) { state.seen[m.id] = Date.now(); save(); } // znika plakietka „nowa” albo „nowe triki”
     const st = state.steps[m.id] || {};
     const sec = (title, inner, extra) => inner ? `<section class="section ${extra || ''}"><h2>${title}</h2>${inner}</section>` : '';
     // Ramka „Kto tego używa naprawdę”: jedno-dwa zdania o tym, kto w prawdziwej pracy robi to, czego uczy misja.

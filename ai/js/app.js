@@ -98,7 +98,7 @@
       const done = isDone(m.id), unlocked = isUnlocked(m.id), isNext = String(m.id) === String(nid);
       const cls = 'mission-row' + (done ? ' done' : '') + (isNext ? ' next' : '') + (!unlocked ? ' locked' : '');
       const tag = done ? '<span class="tag ok">zaliczona</span>' : isNext ? '<span class="tag hot">następna</span>' : !unlocked ? '<span class="tag">po kolei</span>' : '';
-      const fresh = P.nowa(m, state) ? '<span class="tag new">nowa</span> ' : '';
+      const fresh = P.nowa(m, state) ? '<span class="tag new">nowa</span> ' : P.odswiezona(m, state) ? '<span class="tag new">nowe triki</span> ' : '';
       const inner = `${hex(m.nr, done ? 'done' : isNext ? 'next' : '')}<span><span class="title">${esc(m.title)}</span><br><span class="sub">${esc(m.subtitle)}</span></span><span class="meta">${m.minutes} min<br>${fresh}${tag}</span>`;
       return unlocked ? `<li><a class="${cls}" href="#/misja/${m.id}">${inner}</a></li>` : `<li><div class="${cls}" aria-disabled="true">${inner}</div></li>`;
     };
@@ -121,7 +121,7 @@
       const nid = nextId();
       return head + `<div class="callout note"><p><strong>Ta misja czeka na swoją kolej.</strong> Każda korzysta z poprzedniej, dlatego idziemy po kolei. Teraz jest misja ${byId(nid).nr}: <a href="#/misja/${nid}">${esc(byId(nid).title)}</a>.</p></div>`;
     }
-    if (!state.seen[m.id]) { state.seen[m.id] = Date.now(); save(); } // znika plakietka „nowa”
+    if (!state.seen[m.id] || P.odswiezona(m, state)) { state.seen[m.id] = Date.now(); save(); } // znika plakietka „nowa” albo „nowe triki”
     const st = state.steps[m.id] || {};
     const sec = (title, inner, extra) => inner ? `<section class="section ${extra || ''}"><h2>${title}</h2>${inner}</section>` : '';
     // Ramka „Kto tego używa naprawdę”: jedno-dwa zdania o tym, kto w prawdziwej pracy robi to, czego uczy misja.
@@ -140,6 +140,8 @@
     const check = sec('Po czym poznasz, że wyszło', m.check ? `<ul class="checks">${m.check.map(c => `<li>${md(c)}</li>`).join('')}</ul>` : '');
     const follow = sec('Dopytaj', m.followups ? `<p class="muted small">Krótkie wiadomości, które ciągną rozmowę dalej. Jedna naraz.</p>${m.followups.map(f => promptBlock(f, 'dopytanie')).join('')}` : '');
     const solo = sec('Teraz bez ściągi', m.solo ? `${paras([m.solo.text])}${m.solo.hints ? `<details><summary>Podpowiedzi, gdyby się zacięło</summary><ul>${m.solo.hints.map(h => `<li>${md(h)}</li>`).join('')}</ul></details>` : ''}` : '');
+    // Tematy, które nie mieszczą się w 20 minutach misji: krótkie triki na inny dzień, bez odhaczania.
+    const bonus = sec('Na inny dzień', m.bonus ? `<p class="muted small">Krótkie triki, każdy na kilka minut. Do zaliczenia misji nie są potrzebne. Wróć tu, kiedy masz chwilę.</p><div class="cards bonus">${m.bonus.map(b => `<article class="tcard"><h3>${esc(b.title)}</h3><p class="when">${md(b.text)}</p>${b.prompt ? promptBlock(b.prompt, b.title) : ''}${b.tip ? `<p class="small muted" style="margin:0">${md(b.tip)}</p>` : ''}</article>`).join('')}</div>` : '');
     const disc = sec('Odkrycie', m.discovery ? `<p>Na koniec każdej misji jedno pytanie, które otwiera nowe drzwi.</p>${promptBlock(m.discovery, 'prompt odkrycia')}` : '');
     const journal = sec('Do Dziennika', `<p>${md(m.journalPrompt || 'Jedno zdanie: co dziś wyszło albo co Cię zaskoczyło?')}</p><textarea id="j-in" placeholder="Jedno zdanie wystarczy."></textarea><div class="btn-row"><button class="btn" type="button" data-act="journal-add" data-m="${m.id}">Zapisz w Dzienniku</button><a class="small" href="#/dziennik">Zobacz Dziennik</a></div>`);
     const parent = m.parent ? `<div class="callout"><p><strong>Pokaż rodzicowi.</strong> ${md(m.parent)}</p></div>` : '';
@@ -151,7 +153,7 @@
       const kopia = justPrinted != null && P.czasNaKopie() ? '<p class="small" style="margin:0 auto 1rem">Od ostatniej kopii przybyło kilka misji. <a href="../#rodzina">Zrób kopię kodu zapisu</a>, zajmie dziesięć sekund.</p>' : '';
       finish = `<div class="card finish done">${justPrinted != null && String(justPrinted) === String(m.id) ? `<div class="stack-wrap">${stackSVG({ printing: m.id })}</div>` : ''}<h2>Misja ${m.nr} zaliczona</h2><p class="muted">Warstwa dołożona. ${after ? 'Następna czeka, ale nie musi być dziś.' : 'To była ostatnia warstwa. Odznaka gotowa.'}</p>${kopia}<div class="btn-row" style="justify-content:center">${after ? `<a class="btn primary" href="#/misja/${after.id}">Misja ${after.nr}: ${esc(after.title)}</a>` : ''}<a class="btn ghost" href="#/">Lista misji</a><button class="btn ghost small" type="button" data-act="unfinish" data-m="${m.id}">Cofnij zaliczenie</button></div></div>`;
     }
-    return head + why + example + now + check + follow + solo + disc + parent + journal + finish;
+    return head + why + example + now + check + follow + solo + bonus + disc + parent + journal + finish;
   }
 
   function viewNiezbednik() {

@@ -3,7 +3,7 @@
 Strona startowa i kursy misji dla młodych ludzi, w jednym repozytorium, pod jednym adresem GitHub Pages. Statyczne strony bez budowania: HTML, CSS i JavaScript.
 
 - **Akademia** (katalog główny, `https://<login>.github.io/<repo>/`): ekran startowy. Każdy kurs jako ikona aplikacji, pod spodem kompletność każdego kursu: pasek podzielony na tyle kratek, ile kurs ma misji, i nazwa następnej misji.
-- **Akademia AI** (katalog `ai/`, `https://<login>.github.io/<repo>/ai/`): 14 misji o sprawnym używaniu AI (ChatGPT na koncie rodzica) w codziennym życiu.
+- **Akademia AI** (katalog `ai/`, `https://<login>.github.io/<repo>/ai/`): 14 misji po najwyżej 20 minut o sprawnym używaniu AI (ChatGPT na koncie rodzica) w codziennym życiu.
 - **Akademia Arkuszy** (katalog `arkusze/`, `https://<login>.github.io/<repo>/arkusze/`): 16 misji o Arkuszach Google od zera do poziomu średniego: tabele, formuły, SUMA i spółka, pinezka `$`, sortowanie, wykresy, formatowanie warunkowe, JEŻELI, daty, WYSZUKAJ.PIONOWO, tabela przestawna, ankieta wśród dorosłych, własny projekt.
 
 Każdy kurs ma własne style, logikę i treść. Wspólne są bramka z hasłem (`js/gate.js`), spis kursów (`js/kursy.js`), zapis postępu z domownikami (`js/postep.js`) i sposób publikacji. Do tego publiczna strona jednej karty z Niezbędnika (`karta/`), jedyna bez hasła. Poniższe uwagi dotyczą obu kursów; tam, gdzie kursy się różnią, jest to zaznaczone.
@@ -37,6 +37,10 @@ Każda misja ma stałą nazwę w polu `id` (np. `'karta-startowa'`). Postęp zap
 4. Karty Niezbędnika do tej misji dopisz w `js/content/niezbednik.js`: `mission` to nazwa misji, `id` to stały adres karty w linku do udostępnienia.
 
 Nowy rozdział to jeden obiekt na końcu listy w `spis.js` (`id`, `title`, `missions`). Kursy z jednym rozdziałem bez tytułu wyglądają jak dawniej: jedna lista misji.
+
+**Poprawka istniejącej misji.** Dopisz `updated: 'RRRR-MM-DD'` (dzień zmiany). Kto otworzył albo zaliczył misję przed tym dniem, zobaczy przy niej plakietkę „nowe triki”, a na stronie startowej wpis w „Co nowego”. Zaliczenie zostaje, plakietka znika po otwarciu misji.
+
+**Na inny dzień** (pole `bonus`, na razie tylko w Akademii AI). Misja AI mieści się w 20 minutach (`minutes`). Tematy, które się nie zmieściły, wpisz jako listę `{ title, text, prompt, tip }` (`prompt` i `tip` są opcjonalne). Strona pokazuje je jako karty pod „Teraz bez ściągi”, bez odhaczania i bez wpływu na zaliczenie.
 
 Kroki misji odhacza się po treści kroku. Wstawienie kroku w środek nie przesuwa ptaszków; poprawka literówki w kroku zdejmuje z niego ptaszka. Krok, który ma przetrwać każdą zmianę treści, może dostać własne `id`.
 

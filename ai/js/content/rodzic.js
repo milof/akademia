@@ -3,7 +3,7 @@ window.AKADEMIA = window.AKADEMIA || {};
 window.AKADEMIA.parent = {
   title: 'Dla rodzica',
   intro: [
-    'Ta strona jest dla Ciebie. Akademia to 13 misji po około 30 minut, do przejścia po kolei, jedna lub dwie w tygodniu. Celem nie jest obsługa ChatGPT, tylko sposób myślenia: powiedzieć, czego chcę, poprawiać zamiast zaczynać od nowa, sprawdzać, rozbijać duże na małe i pytać AI o rzeczy, o których się nie wiedziało.',
+    'Ta strona jest dla Ciebie. Akademia to 14 misji po około 30 minut, do przejścia po kolei, jedna lub dwie w tygodniu. Celem nie jest obsługa ChatGPT, tylko sposób myślenia: powiedzieć, czego chcę, poprawiać zamiast zaczynać od nowa, sprawdzać, rozbijać duże na małe i pytać AI o rzeczy, o których się nie wiedziało.',
     'Stan na wrzesień 2026. Regulaminy i ustawienia narzędzi zmieniają się często, więc linki poniżej traktuj jako punkt startu, nie jako gwarancję.'
   ],
   sections: [
@@ -11,7 +11,7 @@ window.AKADEMIA.parent = {
       title: 'Jak to działa',
       html: '<ul>' +
         '<li><strong>Misje idą po kolei</strong>, bo każda korzysta z poprzedniej. Możesz je odblokować wszystkie naraz przełącznikiem na dole tej strony.</li>' +
-        '<li><strong>Każda misja</strong> ma: po co to, przykład rozmowy, kroki z gotowymi promptami do skopiowania, listę "po czym poznasz, że wyszło", krótkie dopytania, zadanie bez ściągi, prompt odkrycia i wpis do Dziennika.</li>' +
+        '<li><strong>Każda misja</strong> ma: po co to (z ramką „Kto tego używa naprawdę”), przykład rozmowy, kroki z gotowymi promptami do skopiowania, listę "po czym poznasz, że wyszło", krótkie dopytania, zadanie bez ściągi, prompt odkrycia i wpis do Dziennika.</li>' +
         '<li><strong>Niezbędnik</strong> to ściąga wszystkich technik. Karty odblokowują się z misjami. Da się wydrukować.</li>' +
         '<li><strong>Dziennik odkryć</strong> to jedno zdanie po każdej misji. Po kilku tygodniach robi się z tego najlepszy dowód postępu, lepszy niż odznaki.</li>' +
         '<li><strong>Postęp zapisuje się tylko w tej przeglądarce</strong>, osobno dla każdego domownika. Gdy domowników jest kilku, strona po otwarciu pyta, kto się uczy. Kod zapisu całej Akademii (wszystkie kursy, wszyscy domownicy) jest na stronie startowej, w <a href="../#rodzina">Rodzina i kopia</a>. Strona sama przypomina o kopii co kilka misji.</li>' +
@@ -27,9 +27,19 @@ window.AKADEMIA.parent = {
         '<p>Samych haseł nie ma w repozytorium, są tam tylko ich skróty. Oba zmienisz w jednym pliku <code>js/gate.js</code>: hasło dziecka w linii <code>HASH_UCZEN</code>, Twoje w <code>HASH_PODGLAD</code>. Nowe hasło dziecka wpisz w polu na dole tej strony, skopiuj wygenerowaną linię i wklej ją w miejsce starej. Po zmianie wszyscy, łącznie z Tobą, wpisują nowe hasło jeszcze raz.</p>'
     },
     {
+      title: 'Żeby nauka przydawała się od razu',
+      html: '<p>Zdanie „to Ci się przyda w przyszłości” rzadko działa. Dla 10-latka przyszłość jest daleko, a z ust dorosłego brzmi jak obowiązek. Lepiej działają dwie rzeczy: nauka, która przydaje się <strong>już w tym tygodniu</strong>, i związek z dorosłym życiem, który dziecko <strong>odkrywa samo</strong>. Akademia ma na to trzy narzędzia.</p>' +
+        '<ul>' +
+        '<li><strong>Zlecenia</strong> (strona startowa, <a href="../#zlecenia">Zlecenia</a>). Dajesz prawdziwe zadanie, które rodzina i tak ma do zrobienia: porównanie przed zakupem, plan sobotniego wyjścia, obiad z tego, co jest w lodówce. Dziecko robi je technikami z misji i wpisuje wynik. Ty dopisujesz, <em>co z tego wyszło</em>: „kupiliśmy ten z Twojej tabeli”, „pojechaliśmy Twoją trasą”. To zdanie jest najważniejsze, bo łączy naukę z prawdziwym skutkiem. Wystarczy jedno zlecenie na tydzień albo dwa.</li>' +
+        '<li><strong>Misja „Ja za 15 lat”</strong> (misja 10). Dziecko pyta AI o zawody, które łączą jego pasje, i o to, jak wygląda w nich zwykły wtorek. Ostatni krok to rozmowa z Tobą: opowiedz swój zwykły wtorek w pracy i pokaż jedną prawdziwą rzecz, której używasz (arkusz, plan, rozmowę z AI), bez danych firmy. Dziesięć minut.</li>' +
+        '<li><strong>Ramka „Kto tego używa naprawdę”</strong> w każdej misji, pod „Po co to”. Jedno-dwa zdania o tym, kto w prawdziwej pracy robi to, czego uczy misja. Jeśli znasz kogoś takiego, opowiedz o nim: znajomy człowiek działa mocniej niż przykład z ekranu.</li>' +
+        '</ul>' +
+        '<p>Czego unikać: punktów i nagród za samo zaliczanie misji. Taka nagroda łatwo staje się celem zamiast ciekawości. Lepsza nagroda to „zrobiliśmy tak, jak zaplanowałeś”.</p>'
+    },
+    {
       title: 'Twoja rola',
       html: '<ul>' +
-        '<li><strong>Bądź obok przy misjach z "Pokaż rodzicowi"</strong> (0, 2, 3, 4, 5, 8, 10, 11, 12). Resztę może robić sam, ale w pokoju, w którym jesteś.</li>' +
+        '<li><strong>Bądź obok przy misjach z "Pokaż rodzicowi"</strong> (0, 2, 3, 4, 5, 8, 10, 11, 12, 13). Resztę może robić sam, ale w pokoju, w którym jesteś.</li>' +
         '<li><strong>Nie poprawiaj promptów za niego.</strong> Gdy odpowiedź AI jest słaba, zapytaj: "Co byś dopisał, żeby zrozumiało?" Wolne pisanie jest w porządku, literówki też. AI je wybacza.</li>' +
         '<li><strong>Pytaj "jak to sprawdziłeś?"</strong> częściej niż "czy to prawda?". Chwal dopytywanie i sprawdzanie, nie sam wynik.</li>' +
         '<li><strong>Trzymaj granicę lekcji:</strong> AI tłumaczy, sprawdza rozumienie i robi quizy. Zadania pisze sam. Ta zasada jest w misji 0 i 3, ale to Ty ją egzekwujesz.</li>' +
@@ -84,7 +94,7 @@ window.AKADEMIA.parent = {
         '<li><strong>Dziennik co tydzień.</strong> Jedno pytanie "jak jeszcze możesz mi pomóc?" w nowym temacie i jeden wpis. To utrzymuje nawyk odkrywania.</li>' +
         '<li><strong>Solo co miesiąc.</strong> Jedna prawdziwa sprawa załatwiona z AI od początku do końca, pokazana Tobie.</li>' +
         '<li><strong>Nowe misje.</strong> Strona to zwykłe pliki. Misje są w katalogu <code>js/content</code>, każda to jeden obiekt z polami: tytuł, kroki, prompty. Możesz dopisać własną, albo poprosić o to ChatGPT, wklejając mu jedną istniejącą misję jako wzór.</li>' +
-        '<li><strong>Budowanie dalej.</strong> Misje 11 i 12 pokazały, że opis zamienia się w program. Następny krok to zwykle własna strona o hobby albo prosta gra dla kolegów, z Twoją pomocą przy publikacji.</li>' +
+        '<li><strong>Budowanie dalej.</strong> Misje 12 i 13 pokazały, że opis zamienia się w program. Następny krok to zwykle własna strona o hobby albo prosta gra dla kolegów, z Twoją pomocą przy publikacji.</li>' +
         '</ul>'
     }
   ]

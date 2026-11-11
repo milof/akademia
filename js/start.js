@@ -1,5 +1,6 @@
 /* Strona startowa Akademii: kursy jako ikony, kompletność, liczby i nowości domownika, który siedzi
-   przy komputerze. Pod #rodzina są domownicy, linki-zakładki i kod zapisu, pod #raport raport dla taty.
+   przy komputerze. Pod #rodzina są domownicy, linki-zakładki i kod zapisu, pod #raport raport dla taty,
+   pod #zlecenia prawdziwe zadania od rodziny.
    Liczby liczą się z prawdziwej treści kursów, którą postep.js ładuje z listy w js/kursy.js. */
 (function () {
   'use strict';
@@ -13,6 +14,7 @@
   var bledy = {};      // kursy, których treść się nie wczytała
   var wynik = '';      // komunikat po wczytaniu kodu zapisu
   var link = { kto: '', gdzie: '', url: '' }; // ostatnio zrobiony link-zakładka
+  var zlKomunikat = ''; // komunikat po dodaniu zlecenia
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -139,6 +141,7 @@
           '. Wybierz, w co dziś wchodzisz.</p>' +
       '</section>' +
       '<nav class="siatka" aria-label="Kursy">' + kafelki + '</nav>' +
+      zleceniaSkrot() +
       kopia +
       (nowe.length ? '<section class="nowosci" aria-labelledby="tyt-nowe"><h2 id="tyt-nowe" class="nadtytul">Co nowego</h2><ul>' + nowe.join('') + '</ul></section>' : '') +
       '<section class="podsumowanie" aria-labelledby="tyt-komplet">' +
@@ -146,7 +149,7 @@
         lista.map(function (x) { return wiersz(x.kurs, x.z); }).join('') +
       '</section>' +
       liczby(lista) +
-      '<div class="rzad"><a class="btn" href="#raport">Raport dla taty</a><a class="btn jasny" href="#rodzina">Rodzina i kopia</a></div>';
+      '<div class="rzad"><a class="btn" href="#raport">Raport dla taty</a><a class="btn jasny" href="#zlecenia">Zlecenia</a><a class="btn jasny" href="#rodzina">Rodzina i kopia</a></div>';
   }
 
   /* ---------- Raport dla taty ---------- */
@@ -180,14 +183,171 @@
       linie.push('Z Dziennika:');
       wpisy.slice(0, 5).forEach(function (w) { linie.push('- ' + data(w.d) + ' (' + w.gdzie + '): ' + w.t); });
     }
+    var zl = P.zleceniaDla(p.id);
+    if (zl.length) {
+      var zam = zl.filter(function (z) { return z.zamkniete; }).sort(function (a, b) { return b.zamkniete - a.zamkniete; });
+      var czeka = zl.filter(function (z) { return z.oddane && !z.zamkniete; });
+      var otw = zl.filter(function (z) { return !z.oddane; });
+      linie.push('');
+      linie.push('Zlecenia: ' + zam.length + ' ' + odmiana(zam.length, ['zrobione', 'zrobione', 'zrobionych']) +
+        (czeka.length ? ', ' + czeka.length + ' czeka na „co z tego wyszło”' : '') +
+        (otw.length ? ', ' + otw.length + ' do zrobienia' : '') + '.');
+      zam.slice(0, 3).forEach(function (z) {
+        linie.push('- ' + data(z.zamkniete) + ': ' + z.tytul + '.' + (z.wynik ? ' Wynik: ' + z.wynik : '') +
+          (z.coWyszlo ? ' Co z tego wyszło: ' + z.coWyszlo : ''));
+      });
+      czeka.forEach(function (z) { linie.push('- ' + z.tytul + ': oddane' + (z.wynik ? ', wynik: ' + z.wynik : '') + '.'); });
+      otw.forEach(function (z) { linie.push('- ' + z.tytul + ': do zrobienia' + (z.termin ? ' do ' + dzien(z.termin) : '') + '.'); });
+    }
     return linie.join('\n');
   }
   function raport() {
     return '<p class="wroc"><a href="#">← Kursy</a></p>' +
       '<h1>Raport dla taty</h1>' +
-      '<p class="wstep">Co zaliczone i co w Dzienniku, w kilku linijkach. Skopiuj i wklej w wiadomość.</p>' +
+      '<p class="wstep">Co zaliczone, co w Dzienniku i jak idą zlecenia, w kilku linijkach. Skopiuj i wklej w wiadomość.</p>' +
       '<div class="karta"><pre class="raport">' + esc(tekstRaportu()) + '</pre>' +
         '<div class="rzad"><button class="btn" type="button" data-kopiuj="raport">Kopiuj raport</button></div></div>';
+  }
+
+  /* ---------- Zlecenia ---------- */
+  // Podpowiedzi dla rodzica. Nawiasy kwadratowe to miejsca do podmiany. `misja` to <kurs>.<id misji>.
+  var POMYSLY = [
+    { kurs: 'ai', krotko: 'Porównanie przed zakupem', tytul: 'Porównaj trzy [filamenty / plecaki / słuchawki] przed zakupem', poCo: 'Kupimy ten, który wygra w Twojej tabeli.', misja: 'ai.porownaj' },
+    { kurs: 'ai', krotko: 'Plan wyprawy', tytul: 'Zaplanuj sobotnią wyprawę: trasa, co zabrać, co może pójść nie tak', poCo: 'Pojedziemy według Twojego planu.', misja: 'ai.plan-na-kroki' },
+    { kurs: 'ai', krotko: 'Obiad z lodówki', tytul: 'Wymyśl obiad z tego, co jest w lodówce', poCo: 'Ugotujemy go razem w weekend.', misja: 'ai.sprawy-domowe' },
+    { kurs: 'ai', krotko: 'Pomysły na prezent', tytul: 'Trzy pomysły na prezent dla [kogo] do [kwota] zł', poCo: 'Kupimy jeden z Twoich pomysłów.', misja: 'ai.kilka-wersji' },
+    { kurs: 'ai', krotko: 'Wytłumacz nam', tytul: 'Dowiedz się, jak działa [coś z wiadomości albo z domu], i wytłumacz nam przy kolacji', poCo: 'Przy kolacji to Ty jesteś ekspertem.', misja: 'ai.trudny-temat' },
+    { kurs: 'ai', krotko: 'Naprawa', tytul: 'Znajdź sposób, jak naprawić [zepsutą rzecz]', poCo: 'Naprawimy ją razem według Twojej instrukcji.', misja: 'ai.sprawy-domowe' },
+    { kurs: 'arkusze', krotko: 'Budżet', tytul: 'Policz w arkuszu budżet na [urodziny / wyjście do kina]', poCo: 'Wydamy tyle, ile wyjdzie w Twoim arkuszu.', misja: 'arkusze.suma' },
+    { kurs: 'arkusze', krotko: 'Zakupy z cenami', tytul: 'Lista zakupów na [grilla] z cenami i sumą', poCo: 'Pójdziemy z nią do sklepu.', misja: 'arkusze.karty' },
+    { kurs: 'arkusze', krotko: 'Tabela wyników', tytul: 'Prowadź tabelę wyników [meczów / gier rodzinnych]', poCo: 'Powiesimy ją na lodówce, a zwycięzca wybiera deser.', misja: 'arkusze.sortuj' },
+    { kurs: 'arkusze', krotko: 'Odliczanie', tytul: 'Arkusz z odliczaniem do [wyjazdu / urodzin] i listą rzeczy do załatwienia', poCo: 'Będziemy z niego korzystać aż do wyjazdu.', misja: 'arkusze.daty' },
+    { kurs: 'arkusze', krotko: 'Skarbonka', tytul: 'Ile tygodni zbierania na [cel], jeśli odkładasz [kwota] zł tygodniowo', poCo: 'Wpiszemy ten dzień do kalendarza.', misja: 'arkusze.pierwsza-formula' }
+  ];
+  function dzien(rrrr) { return data(Date.parse(rrrr + 'T12:00:00')); }
+  function ileDni(rrrr) {
+    var dzis = new Date().setHours(0, 0, 0, 0);
+    return Math.round((new Date(rrrr + 'T00:00:00').getTime() - dzis) / 864e5);
+  }
+  function termin(z) {
+    if (!z.termin) return '';
+    var n = ileDni(z.termin);
+    var kiedy = n < 0 ? 'po terminie' : n === 0 ? 'dziś' : n === 1 ? 'jutro' : 'za ' + n + ' dni';
+    return 'do ' + dzien(z.termin) + (z.oddane ? '' : ' (' + kiedy + ')');
+  }
+  // Misja, która przyda się w zleceniu: link do niej i podpis „Akademia AI, misja 4: Porównaj i sprawdź”.
+  function misjaZlecenia(z) {
+    if (!z.misja) return null;
+    var kursId = z.misja.split('.')[0], id = z.misja.slice(kursId.length + 1);
+    var k = KURSY.filter(function (x) { return x.id === kursId; })[0];
+    if (!k || bledy[k.id]) return null;
+    var m = P.spis(k.id).po[id];
+    return m ? { href: k.sciezka + '#/misja/' + m.id, tekst: k.nazwa + ', misja ' + m.nr + ': ' + m.title } : null;
+  }
+  function imieZ(id) { var p = id && P.profil(id); return p ? (p.imie || 'bez imienia') : ''; }
+  function widoczne() {
+    var lista = podglad() ? P.zlecenia() : P.zleceniaDla(ja().id);
+    return lista.slice().sort(function (a, b) {
+      if (!a.termin !== !b.termin) return a.termin ? -1 : 1;
+      return (a.termin || '').localeCompare(b.termin || '') || a.dodane - b.dodane;
+    });
+  }
+  function zleceniaSkrot() {
+    var lista = widoczne(), otw = lista.filter(function (z) { return !z.oddane; });
+    var czeka = lista.filter(function (z) { return z.oddane && !z.zamkniete; });
+    if (!otw.length && !czeka.length) return '';
+    return '<section class="zl-skrot" aria-labelledby="tyt-zl"><h2 id="tyt-zl" class="nadtytul">Zlecenia od rodziny</h2>' +
+      (otw.length ? '<ul>' + otw.slice(0, 3).map(function (z) {
+        var m = misjaZlecenia(z);
+        return '<li><a href="#zlecenia"><b>' + esc(z.tytul) + '</b></a>' +
+          '<span class="cichy maly">' + [termin(z), m ? 'przyda się: ' + esc(m.tekst.replace(/^Akademia /, '')) : ''].filter(Boolean).join(' · ') + '</span></li>';
+      }).join('') + '</ul>' : '') +
+      (otw.length > 3 ? '<p class="cichy maly">I jeszcze ' + (otw.length - 3) + ' w <a href="#zlecenia">Zleceniach</a>.</p>' : '') +
+      (czeka.length ? '<p class="cichy maly">' + czeka.length + ' ' + odmiana(czeka.length, ['oddane czeka', 'oddane czekają', 'oddanych czeka']) +
+        ' na to, co z tego wyszło. <a href="#zlecenia">Zobacz</a></p>' : '') +
+      '</section>';
+  }
+  function kartaZlecenia(z) {
+    var m = misjaZlecenia(z), rodzic = podglad(), id = esc(z.id);
+    var meta = [rodzic ? 'dla: ' + (z.dla ? esc(imieZ(z.dla)) : 'każdego') : '', esc(termin(z)),
+      z.oddane && z.kto && (rodzic || !z.dla) ? 'oddane przez: ' + esc(imieZ(z.kto)) : ''].filter(Boolean).join(' · ');
+    var gora = (meta ? '<p class="zl-meta">' + meta + '</p>' : '') + '<h3>' + esc(z.tytul) + '</h3>' +
+      (z.poCo ? '<p class="zl-poco">' + esc(z.poCo) + '</p>' : '') +
+      (m && !z.zamkniete ? '<p class="cichy maly">Przyda się: <a href="' + esc(m.href) + '">' + esc(m.tekst) + '</a></p>' : '');
+    var usun = rodzic ? '<button class="btn jasny maly" type="button" data-zl-usun="' + id + '">Usuń</button>' : '';
+    if (!z.oddane) {
+      return '<article class="karta zlecenie">' + gora +
+        '<label for="zl-w-' + id + '">Twój wynik</label>' +
+        '<textarea id="zl-w-' + id + '" maxlength="600" placeholder="Co wyszło? Co wybrałeś i dlaczego? Dwa zdania wystarczą.">' + esc(z.wynik) + '</textarea>' +
+        '<div class="rzad"><button class="btn" type="button" data-zl-oddaj="' + id + '">Gotowe, oddaję</button>' + usun + '</div></article>';
+    }
+    var wynik = z.wynik ? '<p class="zl-wynik"><b>Wynik:</b> ' + esc(z.wynik) + '</p>' : '';
+    if (!z.zamkniete) {
+      return '<article class="karta zlecenie">' + gora + wynik +
+        '<label for="zl-c-' + id + '">Co z tego wyszło? <span class="cichy">Dopisuje rodzic</span></label>' +
+        '<textarea id="zl-c-' + id + '" maxlength="600" placeholder="Np. kupiliśmy ten z Twojej tabeli. Pojechaliśmy Twoją trasą."></textarea>' +
+        '<div class="rzad"><button class="btn" type="button" data-zl-zamknij="' + id + '">Zapisz i zamknij</button>' +
+          '<button class="btn jasny maly" type="button" data-zl-cofnij="' + id + '">Popraw wynik</button>' + usun + '</div></article>';
+    }
+    return '<article class="karta zlecenie zrobione">' + gora + wynik +
+      (z.coWyszlo ? '<p class="zl-wyszlo"><b>Co z tego wyszło:</b> ' + esc(z.coWyszlo) + '</p>' : '') +
+      '<p class="cichy maly">Zamknięte ' + data(z.zamkniete) + '.</p>' + (usun ? '<div class="rzad ciasny">' + usun + '</div>' : '') + '</article>';
+  }
+  function formularz() {
+    var nazwani = P.profile().filter(function (p) { return p.imie; });
+    var dla = '<option value="">Każdy</option>' + nazwani.map(function (p) {
+      return '<option value="' + esc(p.id) + '"' + (nazwani.length === 1 ? ' selected' : '') + '>' + esc(p.imie) + '</option>';
+    }).join('');
+    var misje = '<option value="">Bez wskazania misji</option>' + KURSY.filter(function (k) { return !bledy[k.id]; }).map(function (k) {
+      return '<optgroup label="' + esc(k.nazwa) + '">' + P.spis(k.id).misje.map(function (m) {
+        return '<option value="' + esc(k.id + '.' + m.id) + '">' + m.nr + '. ' + esc(m.title) + '</option>';
+      }).join('') + '</optgroup>';
+    }).join('');
+    var pomysly = KURSY.map(function (k) {
+      var l = POMYSLY.filter(function (x) { return x.kurs === k.id; });
+      if (!l.length) return '';
+      return '<p class="cichy maly zl-pomysly-tyt">' + esc(k.nazwa) + '</p><div class="zl-pomysly">' + l.map(function (x) {
+        return '<button type="button" class="zl-pomysl" data-zl-pomysl="' + POMYSLY.indexOf(x) + '">' + esc(x.krotko) + '</button>';
+      }).join('') + '</div>';
+    }).join('');
+    return '<form class="zl-form" data-zl-nowe autocomplete="off">' +
+      '<p>Najlepsze zlecenie to coś, co rodzina i tak musi zrobić, a wynik naprawdę wykorzystacie. Pomysły na start (kliknij, potem podmień to, co w nawiasach):</p>' +
+      pomysly +
+      '<div class="zl-pola">' +
+        '<div class="field"><label for="zl-tytul">Co do zrobienia</label><input id="zl-tytul" type="text" maxlength="140" placeholder="Np. Porównaj trzy plecaki przed zakupem"></div>' +
+        '<div class="field"><label for="zl-poco">Co z tym zrobicie</label><input id="zl-poco" type="text" maxlength="240" placeholder="Np. Kupimy ten, który wygra w Twojej tabeli."></div>' +
+        '<div class="zl-dwa">' +
+          '<div class="field"><label for="zl-dla">Dla kogo</label><select id="zl-dla">' + dla + '</select></div>' +
+          '<div class="field"><label for="zl-termin">Do kiedy <span class="cichy">(nieobowiązkowe)</span></label><input id="zl-termin" type="date"></div>' +
+        '</div>' +
+        '<div class="field"><label for="zl-misja">Która misja się przyda <span class="cichy">(nieobowiązkowe)</span></label><select id="zl-misja">' + misje + '</select></div>' +
+      '</div>' +
+      '<div class="rzad ciasny"><button class="btn" type="submit">Dodaj zlecenie</button></div>' +
+      (zlKomunikat ? '<p class="wynik-tekst" role="status">' + esc(zlKomunikat) + '</p>' : '') +
+      '</form>';
+  }
+  function zleceniaWidok() {
+    var lista = widoczne(), rodzic = podglad();
+    var otw = lista.filter(function (z) { return !z.oddane; });
+    var czeka = lista.filter(function (z) { return z.oddane && !z.zamkniete; });
+    var zam = lista.filter(function (z) { return z.zamkniete; }).sort(function (a, b) { return b.zamkniete - a.zamkniete; });
+    function sekcja(tyt, l, pusto) {
+      if (!l.length && !pusto) return '';
+      return '<section class="odstep" aria-label="' + esc(tyt) + '"><h2 class="nadtytul">' + esc(tyt) + (l.length ? ' · ' + l.length : '') + '</h2>' +
+        (l.length ? '<div class="zl-lista">' + l.map(kartaZlecenia).join('') + '</div>' : '<p class="cichy">' + pusto + '</p>') + '</section>';
+    }
+    var nowe = rodzic
+      ? '<section class="karta odstep" aria-labelledby="tyt-zl-nowe"><h2 id="tyt-zl-nowe" class="nadtytul">Nowe zlecenie</h2>' +
+        '<p class="cichy maly">Tryb podglądu: postęp misji się nie zapisuje, ale zlecenia tak, tak jak domownicy. Tylko tutaj możesz je usuwać.</p>' +
+        formularz() + '</section>'
+      : '<details class="karta odstep zl-dla-rodzica"' + (zlKomunikat ? ' open' : '') + '><summary>Dla rodzica: nowe zlecenie</summary>' + formularz() + '</details>';
+    return '<p class="wroc"><a href="#">← Kursy</a></p>' +
+      '<h1>Zlecenia</h1>' +
+      '<p class="wstep">Prawdziwe zadania od rodziny. Robisz je tym, czego nauczyłeś się w Akademii, a wynik naprawdę się do czegoś przydaje.</p>' +
+      sekcja('Do zrobienia', otw, rodzic ? 'Nic nie czeka. Dodaj zlecenie poniżej.' : 'Na razie nic. Poproś rodzica o zlecenie: coś, co rodzina i tak musi zrobić w tym tygodniu.') +
+      sekcja('Oddane, czekają na rodzica', czeka) +
+      sekcja('Co już zmieniły Twoje zlecenia', zam) +
+      nowe;
   }
 
   /* ---------- Rodzina i kopia ---------- */
@@ -262,9 +422,9 @@
         '<code>js/kursy.js</code>.</p></div>';
       return;
     }
-    main.innerHTML = widok === 'rodzina' ? rodzina() : widok === 'raport' ? raport() : glowna();
+    main.innerHTML = widok === 'rodzina' ? rodzina() : widok === 'raport' ? raport() : widok === 'zlecenia' ? zleceniaWidok() : glowna();
   }
-  window.addEventListener('hashchange', function () { wynik = ''; rysuj(); window.scrollTo(0, 0); });
+  window.addEventListener('hashchange', function () { wynik = ''; zlKomunikat = ''; rysuj(); window.scrollTo(0, 0); });
 
   function kopiuj(tekst, btn) {
     function ok() {
@@ -325,6 +485,41 @@
       rysuj();
       return;
     }
+    b = e.target.closest('[data-zl-pomysl]');
+    if (b) {
+      var x = POMYSLY[Number(b.getAttribute('data-zl-pomysl'))];
+      document.getElementById('zl-tytul').value = x.tytul;
+      document.getElementById('zl-poco').value = x.poCo;
+      var sel = document.getElementById('zl-misja');
+      if (sel.querySelector('option[value="' + x.misja + '"]')) sel.value = x.misja;
+      var t = document.getElementById('zl-tytul'), nawias = x.tytul.indexOf('[');
+      t.focus();
+      if (nawias >= 0) t.setSelectionRange(nawias, x.tytul.indexOf(']', nawias) + 1); // od razu do podmiany
+      return;
+    }
+    b = e.target.closest('[data-zl-oddaj]');
+    if (b) {
+      var zid = b.getAttribute('data-zl-oddaj'), pole = document.getElementById('zl-w-' + zid);
+      if (!pole.value.trim()) { pole.placeholder = 'Najpierw wpisz, co wyszło. Jedno zdanie wystarczy.'; pole.focus(); return; }
+      P.zmienZlecenie(zid, { wynik: pole.value, oddane: Date.now(), kto: ja().id });
+      rysuj();
+      return;
+    }
+    b = e.target.closest('[data-zl-zamknij]');
+    if (b) {
+      var zid2 = b.getAttribute('data-zl-zamknij'), pole2 = document.getElementById('zl-c-' + zid2);
+      if (!pole2.value.trim()) { pole2.placeholder = 'Jedno zdanie: co rodzina z tym zrobiła?'; pole2.focus(); return; }
+      P.zmienZlecenie(zid2, { coWyszlo: pole2.value, zamkniete: Date.now() });
+      rysuj();
+      return;
+    }
+    b = e.target.closest('[data-zl-cofnij]');
+    if (b) { P.zmienZlecenie(b.getAttribute('data-zl-cofnij'), { oddane: 0, kto: '' }); rysuj(); return; }
+    b = e.target.closest('[data-zl-usun]');
+    if (b) {
+      if (confirm('Usunąć to zlecenie? Tego nie da się cofnąć, chyba że jest w kodzie zapisu.')) { P.usunZlecenie(b.getAttribute('data-zl-usun')); rysuj(); }
+      return;
+    }
     if (e.target.closest('[data-wczytaj]')) {
       try {
         var ile = P.wczytaj(document.getElementById('kod-in').value);
@@ -336,6 +531,18 @@
     }
   });
   document.addEventListener('submit', function (e) {
+    if (e.target.matches('[data-zl-nowe]')) {
+      e.preventDefault();
+      var tyt = document.getElementById('zl-tytul');
+      if (!tyt.value.trim()) { tyt.focus(); return; }
+      var z = P.dodajZlecenie({
+        tytul: tyt.value, poCo: document.getElementById('zl-poco').value, dla: document.getElementById('zl-dla').value,
+        termin: document.getElementById('zl-termin').value, misja: document.getElementById('zl-misja').value
+      });
+      zlKomunikat = 'Dodane: „' + z.tytul + '”' + (z.dla ? ' dla: ' + imieZ(z.dla) : ' dla każdego') + '.';
+      rysuj();
+      return;
+    }
     if (!e.target.matches('[data-nowy]')) return;
     e.preventDefault();
     var pole = document.getElementById('nowy-im'), imie = pole.value.trim();

@@ -12,6 +12,7 @@ window.AKADEMIA.missions.push(
     'ChatGPT to program, który przeczytał ogromną część internetu i książek. Nauczył się z tego, jak wyglądają dobre odpowiedzi. Dlatego umie wyjaśniać, podpowiadać i pisać. Ale nie jest człowiekiem i nie zawsze ma rację.',
     'Najlepiej działa, gdy mówisz mu jasno, czego chcesz. Tego będziesz się uczyć przez całą Akademię. Dziś: zasady, kilka skrótów i pierwsza rozmowa.'
   ],
+  realWorld: 'Lekarze, prawnicy i programiści też mają zasady pracy z AI. W wielu firmach nie wolno wklejać do czatu danych klientów ani pacjentów. Twoja zasada „nie podaję prywatnych rzeczy” to ta sama zasada, tylko w wersji dla Ciebie.',
   example: {
     intro: 'Tak może wyglądać pierwsza wymiana zdań. Krótko z Twojej strony, krótko z jego.',
     turns: [
@@ -59,6 +60,7 @@ window.AKADEMIA.missions.push(
     'AI nie wie, kim jesteś. Nie wie, że masz 10 lat, że to Twój pierwszy wydruk i że masz godzinę. Jeśli tego nie powiesz, dostaniesz odpowiedź dla nikogo: długą, ogólną, nudną.',
     'Karta startowa to trzy zdania na początek rozmowy: **kim jestem**, **czego chcę**, **jak ma wyglądać odpowiedź**. Zajmuje 20 sekund, a oszczędza 10 minut przewijania.'
   ],
+  realWorld: 'Projektant, który drukuje części w 3D dla klientów, zawsze najpierw pyta: do czego ta część, jaki ma mieć rozmiar, ile może kosztować. Bez tego wydrukuje coś ładnego, ale nieprzydatnego. Karta startowa to te same pytania, tylko odpowiadasz na nie, zanim AI zapyta.',
   example: {
     intro: 'Ta sama sprawa, dwa początki.',
     turns: [
@@ -106,6 +108,7 @@ window.AKADEMIA.missions.push(
     'Pierwsza odpowiedź AI rzadko jest najlepsza. To pierwszy szkic. Dobra wiadomość: nie musisz pisać wszystkiego od nowa. Wystarczy jedno słowo albo krótkie zdanie o tym, co zmienić.',
     'Sześć słów robi większość roboty: **krócej**, **prościej**, **inaczej**, **dodaj**, **usuń**, **dlaczego**. Rozmowa z AI to nie jeden strzał. To ping-pong.'
   ],
+  realWorld: 'Montażysta nie składa filmu za jednym razem. Reżyser ogląda wersję i mówi: krócej tutaj, wytnij to, dodaj muzykę. I tak kilkanaście razy. Tak powstał każdy odcinek serialu, który oglądasz.',
   example: {
     intro: 'Zestaw do plecaka na dzień w lesie. Patrz, jak lista zmienia się po każdej krótkiej wiadomości.',
     turns: [

@@ -224,3 +224,40 @@ kbd { font-family: var(--mono); font-size: .85em; border: 1px solid var(--line);
 .karta-publiczna .wstep { max-width: none; }
 .do-kopii { background: var(--bed); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: .9rem 1rem; margin: 0 0 1rem; }
 .do-kopii pre { white-space: pre-wrap; font-family: var(--mono); font-size: .92rem; margin: 0 0 .75rem; }
+
+/* ---- Zlecenia od rodziny ---- */
+.zl-skrot {
+  background: #FFF4EC; border: 1px solid #FFD3B0; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+}
+.zl-skrot .nadtytul { margin-bottom: .6rem; color: var(--filament-deep); }
+.zl-skrot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+.zl-skrot li { display: flex; flex-direction: column; gap: .1rem; }
+.zl-skrot li a { color: var(--ink); text-decoration-color: #FFB27F; }
+.zl-skrot p { margin: .6rem 0 0; }
+.zl-lista { display: grid; gap: 1rem; }
+.zlecenie h3 { font-family: var(--display); font-size: 1.25rem; font-weight: 700; line-height: 1.2; margin: 0 0 .35rem; }
+.zl-meta { font-family: var(--mono); font-size: .75rem; letter-spacing: .04em; color: var(--steel); margin: 0 0 .35rem; }
+.zl-poco { margin: 0 0 .5rem; }
+.zlecenie label { margin-top: 1rem; }
+.zlecenie label .cichy, .zl-form label .cichy { font-weight: 400; font-size: .88rem; }
+.zlecenie textarea, .zl-form textarea { font-family: var(--body); font-size: .95rem; min-height: 4.5rem; }
+.zl-wynik { margin: .75rem 0 0; }
+.zl-wyszlo { margin: .6rem 0 .5rem; padding: .7rem .9rem; background: #E3F5EA; border-left: 4px solid #197E44; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.zlecenie.zrobione { border-color: #BFE3CC; }
+.zl-pomysly-tyt { margin: .9rem 0 .4rem; font-weight: 600; }
+.zl-pomysly { display: flex; flex-wrap: wrap; gap: .4rem; }
+.zl-pomysl {
+  font: inherit; font-size: .88rem; font-weight: 500; color: var(--ink); background: var(--bed); border: 1px solid var(--line);
+  border-radius: 999px; padding: .3rem .8rem; cursor: pointer;
+}
+.zl-pomysl:hover { border-color: var(--ink); background: var(--paper); }
+.zl-pola { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid #EEF1F4; }
+.zl-dwa { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0 1rem; }
+.zl-form select, .zl-form input[type=date] { width: 100%; }
+input[type=date] {
+  font: inherit; color: var(--ink); background: var(--paper); border: 2px solid var(--line); border-radius: var(--radius-sm);
+  padding: .55rem .8rem; max-width: 100%;
+}
+input[type=date]:focus { border-color: var(--ink); }
+.zl-dla-rodzica summary { cursor: pointer; font-weight: 600; }
+.zl-dla-rodzica[open] summary { margin-bottom: 1rem; }

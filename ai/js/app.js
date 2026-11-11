@@ -124,7 +124,9 @@
     if (!state.seen[m.id]) { state.seen[m.id] = Date.now(); save(); } // znika plakietka „nowa”
     const st = state.steps[m.id] || {};
     const sec = (title, inner, extra) => inner ? `<section class="section ${extra || ''}"><h2>${title}</h2>${inner}</section>` : '';
-    const why = sec('Po co to', paras(m.why));
+    // Ramka „Kto tego używa naprawdę”: jedno-dwa zdania o tym, kto w prawdziwej pracy robi to, czego uczy misja.
+    const real = m.realWorld ? `<div class="callout real"><p><span class="real-label">Kto tego używa naprawdę</span>${md(m.realWorld)}</p></div>` : '';
+    const why = sec('Po co to', paras(m.why) + real);
     let example = '';
     if (m.example) {
       const turns = (m.example.turns || []).map(t => `<div class="bubble ${t.who === 'ty' ? 'ty' : 'ai'}"><span class="who">${t.who === 'ty' ? 'Ty' : 'ChatGPT'}</span>${md(t.text)}</div>`).join('');

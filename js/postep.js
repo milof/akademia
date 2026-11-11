@@ -3,7 +3,8 @@
      domownicy  – kilka osób na jednej przeglądarce, każda z własnym postępem we wszystkich kursach
      stan kursu – zaliczone misje, odhaczone kroki, Dziennik; klucz <klucz kursu>:v2:<id domownika>
      treść      – pliki kursu z listy w js/kursy.js, ładowane na żądanie
-     kod zapisu – jeden na całą Akademię: wszystkie kursy, wszyscy domownicy
+     zlecenia   – prawdziwe zadania od rodziny, wspólne dla całej przeglądarki, każde dla jednego domownika albo dla każdego
+     kod zapisu – jeden na całą Akademię: wszystkie kursy, wszyscy domownicy, zlecenia
 
    Misje i kroki są zapisane po stałych nazwach, nie po numerach, więc nową misję albo krok
    można wstawić w środek, a zaliczone zostają zaliczone. Wszystko żyje w tej przeglądarce. */
@@ -15,6 +16,7 @@
   var K_DOMOWNICY = 'akademia:domownicy'; // { lista: [{ id, imie }], ostatni }
   var K_TERAZ = 'akademia:kto';           // sessionStorage: kto siedzi przy komputerze w tej karcie
   var K_KOPIA = 'akademia:kopia';         // { kiedy, zaliczone }: ostatnie skopiowanie kodu zapisu
+  var K_ZLECENIA = 'akademia:zlecenia';   // { lista: [zlecenie] }, opis pól przy „Zlecenia” niżej
   var KOPIA_CO = 3;                       // po tylu nowych misjach strona przypomina o kopii
   var KOLORY = ['#16202A', '#F2620F', '#1A73E8', '#34A853', '#8E44AD', '#BC4705'];
 
@@ -54,6 +56,7 @@
     if (r.ostatni === id) r.ostatni = null;
     zapiszRejestr();
     KURSY.forEach(function (k) { usun(klucz(k.id, id)); });
+    zapiszZlecenia(zlecenia().filter(function (z) { return z.dla !== id; }));
     if (teraz() === id) teraz(null);
   }
   function wybierz(id) { teraz(id); rejestr().ostatni = id; zapiszRejestr(); }
@@ -214,6 +217,41 @@
     return z;
   }
 
+  /* ---------- Zlecenia ---------- */
+  // Prawdziwe zadanie od rodziny, które dziecko robi tym, czego nauczyło się w kursach.
+  //   dla       – id domownika, '' znaczy: dla każdego
+  //   tytul, poCo, termin ('RRRR-MM-DD' albo ''), misja ('<kurs>.<id misji>' albo '')
+  //   wynik, oddane, kto – co dziecko wpisało, kiedy oddało i kto (ważne przy zleceniu dla każdego)
+  //   coWyszlo, zamkniete – co rodzina z tym zrobiła; to zdanie zamyka zlecenie
+  // Zlecenia zapisują się także w trybie podglądu, tak jak domownicy: to sprawa rodziny, nie postęp ucznia.
+  function zlecenia() { var z = czytaj(K_ZLECENIA); return z && Array.isArray(z.lista) ? z.lista : []; }
+  function zapiszZlecenia(lista) { pisz(K_ZLECENIA, { lista: lista }); }
+  function tekstZ(s, max) { return String(s == null ? '' : s).trim().slice(0, max); }
+  function dodajZlecenie(o) {
+    var z = {
+      id: 'z' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      dla: o.dla && profil(o.dla) ? o.dla : '',
+      tytul: tekstZ(o.tytul, 140), poCo: tekstZ(o.poCo, 240),
+      termin: /^\d{4}-\d{2}-\d{2}$/.test(o.termin || '') ? o.termin : '',
+      misja: tekstZ(o.misja, 80), dodane: Date.now(),
+      wynik: '', oddane: 0, kto: '', coWyszlo: '', zamkniete: 0
+    };
+    var l = zlecenia(); l.push(z); zapiszZlecenia(l);
+    return z;
+  }
+  function zmienZlecenie(id, zmiany) {
+    var l = zlecenia(), z = l.filter(function (x) { return x.id === id; })[0];
+    if (!z) return null;
+    Object.keys(zmiany).forEach(function (k) { z[k] = typeof zmiany[k] === 'string' ? tekstZ(zmiany[k], 600) : zmiany[k]; });
+    zapiszZlecenia(l);
+    return z;
+  }
+  function usunZlecenie(id) { zapiszZlecenia(zlecenia().filter(function (x) { return x.id !== id; })); }
+  // Zlecenia domownika: jego własne i te dla każdego, których nie oddał ktoś inny.
+  function zleceniaDla(pid) {
+    return zlecenia().filter(function (z) { return z.dla === pid || (!z.dla && (!z.kto || z.kto === pid)); });
+  }
+
   /* ---------- Kod zapisu ---------- */
   var PREFIKS = 'AKD2.';
   function doKodu(o) { return btoa(unescape(encodeURIComponent(JSON.stringify(o)))); }
@@ -224,6 +262,15 @@
       KURSY.forEach(function (k) { var s = czytaj(klucz(k.id, p.id)); if (s) kursy[k.id] = s; });
       return { imie: p.imie, kursy: kursy };
     }) };
+    // Id domowników są różne na każdym komputerze, więc w kodzie zlecenie wskazuje domownika po imieniu.
+    var imie = function (id) { var p = profil(id); return p ? p.imie : ''; };
+    var zl = zlecenia().map(function (z) {
+      var c = {};
+      Object.keys(z).forEach(function (k) { if (k !== 'dla' && k !== 'kto') c[k] = z[k]; });
+      c.dlaImie = imie(z.dla); c.ktoImie = imie(z.kto);
+      return c;
+    });
+    if (zl.length) dane.zlecenia = zl;
     try { return PREFIKS + doKodu(dane); } catch (e) { return ''; }
   }
   // Dokłada zapis do domownika: zaliczone tu albo w kodzie zostaje zaliczone, nic nie znika.
@@ -255,6 +302,7 @@
         var p = poImieniu(d.imie) || dodaj(d.imie);
         KURSY.forEach(function (k) { if (d.kursy && d.kursy[k.id]) scal(k.id, p.id, d.kursy[k.id]); });
       });
+      if (Array.isArray(dane.zlecenia)) scalZlecenia(dane.zlecenia);
       // Pusty domownik z pierwszego wejścia na tym komputerze (bez imienia i bez postępu) już niepotrzebny.
       rejestr().lista.filter(function (p) {
         return !p.imie && !KURSY.some(function (k) { return czytaj(klucz(k.id, p.id)); });
@@ -269,6 +317,24 @@
     if (p === ja && !p.imie && norm(dane.name)) zmienImie(p.id, dane.name);
     scal(k.id, p.id, dane);
     return 1;
+  }
+  // Zlecenia z kodu: nowe dochodzą, znane dostają to, czego tu brakuje (wynik, oddanie, „co z tego wyszło”).
+  function scalZlecenia(obce) {
+    var l = zlecenia(), po = {};
+    l.forEach(function (z) { po[z.id] = z; });
+    function kto(imie) { var p = norm(imie) && poImieniu(imie); return p ? p.id : ''; }
+    obce.forEach(function (o) {
+      if (!o || !o.id || !o.tytul) return;
+      var z = po[o.id];
+      if (!z) {
+        z = { id: o.id, dla: kto(o.dlaImie), tytul: tekstZ(o.tytul, 140), poCo: tekstZ(o.poCo, 240), termin: o.termin || '',
+          misja: o.misja || '', dodane: o.dodane || Date.now(), wynik: '', oddane: 0, kto: '', coWyszlo: '', zamkniete: 0 };
+        l.push(z); po[z.id] = z;
+      }
+      if (!z.oddane && o.oddane) { z.wynik = tekstZ(o.wynik, 600); z.oddane = o.oddane; z.kto = kto(o.ktoImie); }
+      if (!z.zamkniete && o.zamkniete) { z.coWyszlo = tekstZ(o.coWyszlo, 600); z.zamkniete = o.zamkniete; }
+    });
+    zapiszZlecenia(l);
   }
   function zaliczoneWszedzie() {
     var n = 0;
@@ -400,6 +466,7 @@
     zmienImie: zmienImie, usunProfil: usunProfil, wybierz: wybierz, kolor: kolor,
     tresc: tresc, spis: spis, kluczKroku: kluczKroku,
     stan: stan, zapisz: zapisz, wyzeruj: wyzeruj, staty: staty, nowa: nowa,
+    zlecenia: zlecenia, zleceniaDla: zleceniaDla, dodajZlecenie: dodajZlecenie, zmienZlecenie: zmienZlecenie, usunZlecenie: usunZlecenie,
     eksport: eksport, wczytaj: wczytaj, oznaczKopie: oznaczKopie, ostatniaKopia: ostatniaKopia, czasNaKopie: czasNaKopie,
     gotowe: gotowe, przycisk: przycisk
   };

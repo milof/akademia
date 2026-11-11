@@ -108,6 +108,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
 .callout.note { border-color: #E0B400; background: var(--warn-soft); }
 .callout.plain { border-color: var(--steel); background: var(--paper); }
 .callout p:last-child { margin: 0; }
+.callout.real { border-color: var(--ink); background: var(--paper); }
+.real-label { display: block; font-family: var(--display); font-weight: 700; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--steel); margin-bottom: .2rem; }
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
 .hidden { display: none !important; }
 

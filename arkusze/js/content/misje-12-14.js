@@ -1,4 +1,4 @@
-/* Misje 12-14: tabela przestawna, projekt w dwóch częściach. */
+/* Misje 12-15: tabela przestawna, ankieta wśród dorosłych, projekt w dwóch częściach. */
 window.ARKUSZE = window.ARKUSZE || {};
 window.ARKUSZE.missions = window.ARKUSZE.missions || [];
 window.ARKUSZE.missions.push(
@@ -12,6 +12,7 @@ window.ARKUSZE.missions.push(
     'W misji 9 sumowałeś po kategorii formułą. Działa, ale przy 10 kategoriach i 3 pytaniach to sporo formuł. **Tabela przestawna** robi to bez ani jednej: wskazujesz tabelkę, mówisz „wiersze: kategoria, wartości: kwota” i masz gotowe podsumowanie. Zmieniasz zdanie, przestawiasz jednym kliknięciem.',
     'To narzędzie, którym dorośli w pracy odpowiadają na pytania „ile czego, kiedy, u kogo”. Ty nauczysz się go dziś na lidze i kieszonkowym.'
   ],
+  realWorld: 'Analityk w firmie dostaje tabelę z tysiącami wierszy sprzedaży i w minutę odpowiada szefowi, ile czego sprzedano w każdym mieście. Właśnie tabelą przestawną. To jedno z najczęściej używanych narzędzi w biurach.',
   example: {
     intro: 'Trzy kliknięcia w Edytorze tabeli przestawnej: Wiersze → Kto, Wartości → Punkty (SUMA), Wartości → Punkty jeszcze raz (ILE.LICZB).',
     sheets: [
@@ -54,15 +55,76 @@ window.ARKUSZE.missions.push(
   }
 },
 {
+  id: 'ankieta',
+  added: '2026-11-08',
+  title: 'Kto w pracy liczy w arkuszu?',
+  subtitle: 'Ankieta wśród dorosłych, odpowiedzi z menu i wynik, który liczy formuła',
+  technique: 'Ankieta',
+  minutes: 30,
+  why: [
+    'Dorośli mówią, że arkusze „przydają się w pracy”. Zamiast wierzyć na słowo, sprawdzisz to jak badacz: zrobisz krótką ankietę wśród dorosłych, wpiszesz odpowiedzi do tabeli i policzysz wynik formułą.',
+    'To prawdziwa robota z danymi. **Pytania** ustalasz z góry. **Odpowiedzi** wpisujesz zawsze tak samo, a menu w komórce pilnuje literówek. **Wynik** liczy formuła, nie Ty. Wszystko, czego potrzebujesz, już znasz: menu, LICZ.JEŻELI, pinezkę, procent, wykres i sklejanie tekstu.'
+  ],
+  realWorld: 'Firmy badające opinie robią dokładnie to samo, tylko z tysiącem osób: te same pytania, odpowiedzi z listy, wynik z formuły. Takie liczby słyszysz potem w wiadomościach: „60% Polaków uważa...”.',
+  example: {
+    intro: 'Tak może wyglądać karta po ankiecie wśród pięciorga dorosłych. Komórka H2 liczy odpowiedzi „tak”.',
+    sheets: [
+      { caption: 'Karta „Ankieta”: odpowiedzi i podsumowanie', fx: { cell: 'H2', text: '=LICZ.JEŻELI(C2:C20;"tak")' }, head: true, sel: 'H2', marks: { H2: 'ok', H3: 'ok', H4: 'ok' },
+        rows: [['Kto', 'Praca', 'Arkusze w pracy', 'Do czego', 'Jak często', '', 'Podsumowanie', ''],
+          ['ciocia', 'sklep', 'tak', 'zamówienia towaru', 'co tydzień', '', 'Używa arkuszy', '4'],
+          ['dziadek', 'emeryt', 'nie', '', 'nigdy', '', 'Zapytanych', '5'],
+          ['wujek', 'warsztat', 'tak', 'cennik części', 'co tydzień', '', 'Procent', '80%'],
+          ['sąsiadka', 'szpital', 'tak', 'grafik dyżurów', 'codziennie', '', '', ''],
+          ['trener', 'klub sportowy', 'tak', 'wyniki zawodników', 'rzadko', '', '', '']] }
+    ],
+    note: 'Imion ani nazw firm nie ma, bo nie są potrzebne. Wystarczy, kim ktoś dla Ciebie jest i gdzie mniej więcej pracuje.'
+  },
+  steps: [
+    { text: 'Najpierw wywiady, z dala od komputera. Zapytaj przynajmniej 4 dorosłych: rodziców, dziadków, ciocię, trenera, sąsiada. Trzy pytania: **gdzie pracujesz** (wystarczy ogólnie: sklep, biuro, szpital), **czy używasz w pracy arkuszy albo tabel**, **do czego i jak często**. Zapisz odpowiedzi na kartce.', tip: 'Możesz to zrobić dzień wcześniej, przy obiedzie albo przez telefon. Bez nazwisk i nazw firm: wystarczy „ciocia, sklep”.' },
+    { text: 'Nowa karta `Ankieta`. Wklej nagłówek, potem wpisz odpowiedzi: jeden dorosły w jednym wierszu. Sformatuj nagłówek jak w misji 1.', copy: 'Kto\tPraca\tArkusze w pracy\tDo czego\tJak często' },
+    { text: 'Menu w komórce, żeby odpowiedzi zawsze brzmiały tak samo. Zaznacz **C2** do **C20**, {{Wstaw}} → {{Menu}}, wpisz opcje `tak` i `nie`, **Gotowe**. To samo w **E2** do **E20** z opcjami `codziennie`, `co tydzień`, `rzadko`, `nigdy`.', tip: 'Ludzie odpowiadają „jasne”, „pewnie”, „no raczej”. Formuła policzy tylko jedno, zawsze takie samo słowo, a menu pilnuje, żeby nim było.' },
+    { text: 'Podsumowanie obok. W **G1** `Podsumowanie`, w **G2** `Używa arkuszy`, a w **H2** formuła, która liczy odpowiedzi „tak”:', copy: '=LICZ.JEŻELI(C2:C20;"tak")' },
+    { text: 'W **G3** `Zapytanych`, w **H3** formuła, która liczy wypełnione wiersze w kolumnie Kto:', copy: '=ILE.NIEPUSTYCH(A2:A20)' },
+    { text: 'W **G4** `Procent`, w **H4** podziel jedno przez drugie. Potem {{Formatuj}} → {{Liczba}} → {{Procent}}.', copy: '=H2/H3' },
+    { text: 'Jak często? Mała tabelka niżej: w **G6** `Jak często`, w **H6** `Ile osób`, w **G7** do **G10** wpisz `codziennie`, `co tydzień`, `rzadko`, `nigdy`. W **H7** formuła, przeciągnij do **H10**.', copy: '=LICZ.JEŻELI($E$2:$E$20;G7)', tip: 'Pinezki z misji 5 trzymają zakres odpowiedzi w miejscu, a G7 przy przeciąganiu zmienia się w G8, G9 i G10.' },
+    { text: 'Wykres: zaznacz **G6** do **H10**, {{Wstaw}} → {{Wykres}}, typ **Wykres kołowy**, bo to części całości (misja 7). Tytuł: `Jak często dorośli używają arkuszy`.' },
+    { text: 'Wniosek w jednym zdaniu, sklejony formułą jak w misji 10. W **G12**:', copy: '=H2&" z "&H3&" zapytanych dorosłych używa arkuszy w pracy."' },
+    { text: 'Pokaż wynik osobom, które pytałeś. Tę, która używa arkuszy najczęściej, poproś, żeby pokazała Ci jeden swój arkusz z pracy, bez tajnych danych. Poszukaj w nim rzeczy, które znasz: SUMA, sortowanie, kolory, filtr, wykres.' }
+  ],
+  check: [
+    'Masz kartę `Ankieta` z odpowiedziami przynajmniej 4 dorosłych.',
+    'Kolumny „Arkusze w pracy” i „Jak często” mają menu, więc nie ma w nich literówek.',
+    'Formuły same liczą, ilu dorosłych używa arkuszy i jaki to procent.',
+    'Widziałeś przynajmniej jeden prawdziwy arkusz z czyjejś pracy i znalazłeś w nim coś, co znasz.'
+  ],
+  variants: [
+    { text: 'Zapytaj jeszcze dwie osoby i dopisz je pod tabelką. Liczby i wykres zmieniają się same, bo zakresy sięgają do wiersza 20.' },
+    { text: 'Kolory z misji 8: zaznacz **A2** do **E20**, {{Formatuj}} → {{Formatowanie warunkowe}}, „Niestandardowa formuła to”. Wiersze z odpowiedzią „tak” robią się zielone.', copy: '=$C2="tak"' },
+    { text: 'Tabela przestawna z misji 12: Wiersze → **Jak często**, Wartości → **Kto**. Arkusz policzy osoby w każdej grupie bez jednej formuły (liczenie: ILE.NIEPUSTYCH, po angielsku COUNTA).' }
+  ],
+  solo: {
+    text: 'Zrób drugą ankietę, tym razem wśród kumpli albo w klasie, na temat, który Cię ciekawi: ulubiona gra, sport, ile czasu przed ekranem. Te same zasady: pytania ustalone z góry, odpowiedzi z menu, wynik z formuły, jeden wykres.',
+    hints: ['Najpierw na kartce: 3 pytania i lista możliwych odpowiedzi do każdego.', 'Bez nazwisk: wystarczą inicjały albo numery.', 'Na końcu wniosek w jednym zdaniu, sklejony znakiem &.']
+  },
+  discovery: { text: 'Zapytaj rodzica o wynik jakiejś ankiety, który ostatnio słyszał w wiadomościach („60% Polaków...”). Ilu ludzi zapytano? Jak brzmiało pytanie? Twoja ankieta działa tak samo, tylko jest mniejsza.' },
+  journalPrompt: 'Co Cię najbardziej zaskoczyło w odpowiedziach dorosłych?',
+  parent: 'Pokaż rodzicowi wykres i zdanie z wnioskiem. Poproś, żeby pokazał Ci jeden swój arkusz albo tabelę z pracy, i znajdź w nim trzy rzeczy, które znasz z Akademii.',
+  forParent: {
+    teaches: 'Zbieranie danych do tabeli (stałe odpowiedzi z menu), LICZ.JEŻELI z pinezką, procent, wykres kołowy i wniosek sklejony formułą. Przy okazji dziecko samo sprawdza, czy arkusze „przydają się w pracy”, zamiast słyszeć to od dorosłych.',
+    ask: 'Odpowiedz na ankietę jako pierwszy i pokaż mu prawdziwy arkusz ze swojej pracy, bez danych firmy. Zapytaj, co w nim rozpoznał.'
+  }
+},
+{
   id: 'twoj-arkusz-1',
   title: 'Twój arkusz, część 1',
   subtitle: 'Wybierasz temat i budujesz coś, czego naprawdę użyjesz',
   technique: 'Wszystko razem',
   minutes: 30,
   why: [
-    'W tej misji nie ma gotowych tabelek do wklejenia ani formuł do skopiowania. Masz Niezbędnik z trzynastu misji i jedną prawdziwą sprawę. Sam decydujesz, jakich narzędzi użyć.',
+    'W tej misji nie ma gotowych tabelek do wklejenia ani formuł do skopiowania. Masz Niezbędnik z czternastu misji i jedną prawdziwą sprawę. Sam decydujesz, jakich narzędzi użyć.',
     'Dziś: wersja, która działa. Nie musi być ładna ani skończona. Ma liczyć coś, co Cię obchodzi. Dopracowanie i pokazanie światu jest w części 2.'
   ],
+  realWorld: 'Wielu dorosłych ma prywatny arkusz, którego nikt im nie kazał zrobić: budżet domowy, trening do maratonu, kolekcję płyt. Zrobili go, bo coś ich obchodziło. Tak samo jak Ty dziś.',
   steps: [
     { text: 'Wybierz jedno wyzwanie. **A. Kieszonkowe na serio:** karta z wpisami (data, co, kategoria z menu, kwota), podsumowanie po kategoriach, wykres, ile zostało z miesięcznego budżetu. **B. Liga kumpli na serio:** wpisy z gier, ranking, kto wygrał najwięcej razy, wykres. **C. Trener słówek:** lista z polami wyboru, procent nauki, karta Quiz z WYSZUKAJ.PIONOWO i JEŻELI, odliczanie do sprawdzianu. **D. Własny temat:** kolekcja, treningi, przeczytane książki, oszczędzanie na coś. Warunek: minimum jedna formuła, jedno podsumowanie i jeden wykres.' },
     { text: 'Zanim klikniesz, napisz na kartce, jakie karty będą w pliku i co ma liczyć każda. Trzy zdania wystarczą.', tip: 'Plan na kartce to najlepsza rzecz, jaką robią ludzie budujący arkusze na co dzień. Oszczędza godzinę poprawiania.' },
@@ -99,6 +161,7 @@ window.ARKUSZE.missions.push(
     'Wersja pierwsza liczy. Teraz robisz to, co robią wszyscy, którzy budują arkusze: **jedna zmiana naraz**, sprawdzenie, następna. Kolory z regułami zamiast ręcznych, ochrona komórek z formułami, żeby nikt (ani Ty) nie skasował ich przypadkiem, i porządek w kartach.',
     'Arkusz to też współpraca: udostępniasz go rodzicowi z komentarzem, sprawdzasz w **historii zmian**, kto co zmienił, i otwierasz w telefonie w aplikacji Arkusze Google. Twoja liga może żyć na telefonach Twoim i kumpli.'
   ],
+  realWorld: 'W pracy arkusze prawie zawsze są wspólne: kilka osób edytuje ten sam plik, a historia zmian pokazuje, kto co zmienił. Ochrona formuł to codzienna ostrożność, bo jedno przypadkowe skasowanie psuje liczby całego zespołu.',
   steps: [
     { text: 'Kopia na wszelki wypadek: {{Plik}} → {{Utwórz kopię}}, nazwa z dopiskiem `wersja 1`. Gdy coś zepsujesz, masz do czego wrócić.' },
     { text: 'Kolory z regułami: przynajmniej jedno formatowanie warunkowe, które coś mówi. Przekroczony budżet na czerwono, zwycięzca na zielono, nieodhaczone słowa na żółto.' },
@@ -117,7 +180,7 @@ window.ARKUSZE.missions.push(
   ],
   variants: [
     { text: 'Dostęp przez link: w oknie {{Udostępnij}} pole **Dostęp ogólny** zostaw na **Ograniczony**. Link „dla każdej osoby” to jak kartka przypięta na przystanku: każdy, kto go ma, widzi Twoje dane. Zawsze zapytaj rodzica, zanim to włączysz.' },
-    { text: 'Nazwana wersja: w historii zmian trzy kropki przy wersji → nadaj jej nazwę, np. „po misji 14”. Łatwiej wrócić.' },
+    { id: 'k2xci2b', text: 'Nazwana wersja: w historii zmian trzy kropki przy wersji → nadaj jej nazwę, np. „po misji 15”. Łatwiej wrócić.' }, // id: stary klucz kroku, żeby ptaszek przetrwał zmianę numeru
     { text: 'Karta „Instrukcja” na początku: trzy zdania, co gdzie wpisywać. Dla kumpla, który dostanie plik za pół roku. Albo dla Ciebie.' },
     { text: 'Szablon do powtarzania: {{Plik}} → {{Utwórz kopię}} co miesiąc, wyczyść dane, formuły zostają.' }
   ],

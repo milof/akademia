@@ -14,7 +14,7 @@ window.ARKUSZE.chapters = [
   {
     id: 'sredni',
     title: 'Poziom średni',
-    missions: ['kolory', 'jezeli', 'daty', 'karty', 'przestawna']
+    missions: ['kolory', 'jezeli', 'daty', 'karty', 'przestawna', 'ankieta']
   },
   {
     id: 'twoj-arkusz',

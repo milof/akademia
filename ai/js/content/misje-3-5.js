@@ -12,6 +12,7 @@ window.AKADEMIA.missions.push(
     'AI może wyjaśnić Ci każdą rzecz tyle razy, ile chcesz, na tyle sposobów, ile chcesz, i nigdy się nie zniecierpliwi. To jego najmocniejsza strona. Warunek: musisz powiedzieć, kiedy nie rozumiesz.',
     'Cztery ruchy: **wytłumacz jak 10-latkowi**, **daj porównanie do czegoś, co znam**, **wytłumacz inaczej**, **sprawdź mnie quizem**. Działa na Enigmę, ułamki, fotosyntezę i zasady gry, której nie ogarniasz.'
   ],
+  realWorld: 'Przewodnik w muzeum wojskowym opowiada tę samą historię dzieciom, turystom z zagranicy i dziadkom, za każdym razem inaczej. Lekarz robi to samo, gdy tłumaczy pacjentowi chorobę bez trudnych słów.',
   example: {
     intro: 'Temat: jak Polacy złamali Enigmę, niemiecką maszynę szyfrującą z II wojny światowej.',
     turns: [
@@ -63,6 +64,7 @@ window.AKADEMIA.missions.push(
     'Gdy chcesz coś kupić, zbudować albo wybrać, AI potrafi w minutę zebrać to, na co w internecie poszłoby pół godziny. Ale zbiera z pamięci, a pamięć bywa nieaktualna. Dlatego research z AI ma dwa kroki: **zebrać** i **sprawdzić**.',
     'Zbieranie: poproś o **tabelę** i o **kryteria**, czyli na co patrzeć. Sprawdzanie: zanim wydasz pieniądze albo coś zbudujesz, potwierdź najważniejszą rzecz w **drugim miejscu**. Drugie miejsce to wyszukiwarka, Wikipedia, opakowanie w sklepie albo rodzic.'
   ],
+  realWorld: 'Dziennikarz, zanim opublikuje ważną informację, sprawdza ją w drugim, niezależnym źródle. Zaopatrzeniowiec w fabryce robi tabelę ofert od kilku dostawców, zanim wyda pieniądze firmy. Tabela i drugie miejsce to ich codzienność.',
   example: {
     intro: 'Temat: jaki filament do pierwszych wydruków. Zobacz, jak tabela porządkuje bałagan.',
     turns: [
@@ -114,6 +116,7 @@ window.AKADEMIA.missions.push(
     'Duże rzeczy przerażają, bo nie wiadomo, od czego zacząć. Wypad do lasu, projekt na konkurs, porządek w pokoju. AI świetnie rozbija duże na małe: **co najpierw**, **co potem**, **co może pójść nie tak**, **checklista**.',
     'Ty decydujesz, co jest celem. AI układa kroki. A potem to Ty je robisz, więc plan musi być dla Ciebie, nie dla dorosłego z samochodem i portfelem.'
   ],
+  realWorld: 'Przewodnik górski przed wyprawą rozpisuje trasę na odcinki, sprawdza, co może pójść nie tak, i ma checklistę sprzętu. Kierownik budowy robi to samo z całym domem: wielki plan pocięty na tygodnie.',
   example: {
     intro: 'Cel: cały dzień w lesie z kumplami i rodzicami, z ogniskiem.',
     turns: [

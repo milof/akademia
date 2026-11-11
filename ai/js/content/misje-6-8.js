@@ -12,6 +12,7 @@ window.AKADEMIA.missions.push(
     'AI nie ma jednej odpowiedzi. Ma ich setki i pokazuje pierwszą, która przyszła. Gdy poprosisz o **3 wersje**, dostajesz wybór, a wybór to Ty decydujesz, nie maszyna.',
     'Do tego dwa ruchy: **połącz** najlepsze kawałki z różnych wersji i **oceń moje**, czyli daj AI swoją wersję do poprawki. Działa na wiadomości, pomysły na prezent, nazwy, opisy, wszystko, co ma więcej niż jedną dobrą odpowiedź.'
   ],
+  realWorld: 'Graficy, którzy robią plakaty filmowe i okładki gier, pokazują klientowi kilka wersji, nigdy jedną. Klient wybiera albo mówi: napis z pierwszej, kolory z trzeciej. To jest Twoje „połącz najlepsze kawałki”.',
   example: {
     intro: 'Zaproszenie dla kumpli na wypad do lasu.',
     turns: [
@@ -62,6 +63,7 @@ window.AKADEMIA.missions.push(
     'AI brzmi pewnie nawet wtedy, gdy zgaduje. Najczęściej myli się w **liczbach i datach**, w **nazwiskach i nazwach**, w **rzeczach bardzo nowych** i w **rzeczach bardzo szczegółowych**. Nie dlatego, że kłamie. Zgaduje z pamięci, jak człowiek, który czytał dużo, ale nie wszystko zapamiętał.',
     'Nie musisz sprawdzać wszystkiego. Zasada jest krótka: **pieniądze, zdrowie, bezpieczeństwo, szkoła: sprawdź w drugim miejscu**. Reszta może zostać niesprawdzona, to tylko rozmowa.'
   ],
+  realWorld: 'W redakcjach pracują weryfikatorzy faktów: sprawdzają liczby, daty i cytaty, zanim tekst trafi do ludzi. Historyk robi to samo ze starymi dokumentami z wojny: nie wierzy jednemu źródłu, nawet bardzo pewnemu.',
   example: {
     intro: 'Fakty o czołgu Sherman. Patrz, co się dzieje, gdy zapytasz o pewność.',
     turns: [
@@ -111,6 +113,7 @@ window.AKADEMIA.missions.push(
     'AI najbardziej przydaje się w małych, codziennych sprawach, o których nikt nie robi filmów. Co zjeść z tego, co jest w lodówce. Jak naprawić zamek w plecaku. Co kupić na ognisko dla 6 osób.',
     'Klucz to **dokładny opis sytuacji** i **ograniczenia**: co masz, czego nie masz, czego nie możesz. `Mam tylko...`, `Nie mogę użyć...`, `Mam 15 minut`. Im dokładniej opiszesz, tym mniej razy będziesz poprawiać.'
   ],
+  realWorld: 'Kucharz w restauracji układa danie dnia z tego, co dostawca przywiózł rano. Złota rączka zaczyna od dokładnego opisu: co się zepsuło, kiedy, co już próbowano. Dokładny opis oszczędza im godziny.',
   example: {
     intro: 'Zamek błyskawiczny w plecaku się zacina. Dwa opisy tej samej sprawy.',
     turns: [

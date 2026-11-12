@@ -9,21 +9,16 @@ window.ARKUSZE.chapters = [
   {
     id: 'magazyn',
     title: 'Magazyn',
-    missions: ['rozruch', 'tabela', 'przeciagnij', 'pierwsza-formula', 'suma', 'pinezka', 'sortuj']
-  },
-  {
-    id: 'decyzje',
-    title: 'Status i decyzje',
-    missions: ['menu', 'kolory', 'jezeli', 'daty', 'licz-jezeli', 'wykres', 'sklejanie']
+    missions: ['rozruch', 'pierwsza-formula', 'suma', 'menu']
   },
   {
     id: 'analizy',
     title: 'Centrum analiz',
-    missions: ['ceny', 'karty', 'przestawna', 'wiedza', 'pulpit', 'ochrona']
+    missions: ['jezeli', 'licz-jezeli', 'ceny', 'przestawna', 'wiedza', 'pulpit']
   },
   {
     id: 'twoj-sklep',
     title: 'Twój sklep',
-    missions: ['twoj-arkusz-1', 'twoj-arkusz-2', 'twoj-arkusz-3']
+    missions: ['twoj-arkusz-1', 'twoj-arkusz-2']
   }
 ];
